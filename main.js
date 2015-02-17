@@ -40,15 +40,15 @@ function checkSprite(sprite, x, y) {
 
 //Mouse manager function
 manager.onMouseDown = function(button) {
-	// for (var sprite in sprites) {
-		// sprite = sprites[sprite];
-		// if (checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
-			// this.clicked = true;
-			// this.target = sprite;
-			// console.log("I clicked a thing.");
-			// break;
-		// }
-	// }
-	character.moveTo(gInput.mouse.x, gInput.mouse.y);
+	for (var sprite in sprites) {
+		sprite = sprites[sprite];
+		//check if clicked on a clickable thing
+		if (checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
+			character.moveTo(sprite.moveX, sprite.moveY);
+			console.log("I clicked a thing");
+			break;
+		}
+	}
+	//character.moveTo(gInput.mouse.x, gInput.mouse.y);
 };
 gInput.addMouseDownListener(manager);

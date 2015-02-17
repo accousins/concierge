@@ -7,5 +7,11 @@ function loadPhone(){
 	phone.height = 25;
 	phone.image = Textures.load("phone.png");
 	world.addChild(phone);
+	
+	//vars that hold where the character should move to
+	//to interact with the object
+	phone.moveX = 120;
+	phone.moveY = 500;
+	
 	return phone;
 }
