@@ -3,8 +3,6 @@ use2D = true;
 //Potential causes for breaks:
 //Sprite name changes
 
-// test line
-
 //is the character busy?
 var busy = false;
 
