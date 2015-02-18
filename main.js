@@ -2,26 +2,32 @@
 use2D = true;
 //Potential causes for breaks:
 //Sprite name changes
+var sprites = new Array();
+var busy;
+var phone, robot, computer, character;
 
-//is the character busy?
-var busy = false;
+function startGame() {
+	//is the character busy?
+	busy = false;
 
-//call load functions for all objects
-var phone = loadPhone();
-var robot = loadRobot();
-var computer = loadComputer();
-var character = loadCharacter();
+	//call load functions for all objects
+	phone = loadPhone();
+	robot = loadRobot();
+	computer = loadComputer();
+	character = loadCharacter();
+
+	//clickable things
+	sprites.push(phone);
+	sprites.push(robot);
+	sprites.push(character);
+	sprites.push(computer);
+}
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
 manager.clicked = false;
 manager.target = undefined;
 world.addChild(manager);
-var sprites = new Array();
-sprites.push(phone);
-sprites.push(robot);
-sprites.push(character);
-sprites.push(computer);
 
 //checkSprite: checks to see if mouse/sprite coordinates are overlapping
 function checkSprite(sprite, x, y) {
@@ -52,3 +58,4 @@ manager.onMouseDown = function(button) {
 	//character.moveTo(gInput.mouse.x, gInput.mouse.y);
 };
 gInput.addMouseDownListener(manager);
+startGame();
