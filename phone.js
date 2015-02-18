@@ -6,6 +6,17 @@ function loadPhone(){
 	phone.width = 25;
 	phone.height = 25;
 	phone.image = Textures.load("phone.png");
+	
+	//vars that hold where the character should move to
+	//to interact with the object
+	phone.moveX = 120;
+	phone.moveY = 500;
+	
+	//What do when clicked on
+	phone.click = function(){
+		character.moveTo(120,500);
+	};
+	
 	world.addChild(phone);
 	return phone;
 }
