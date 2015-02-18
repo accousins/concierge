@@ -6,7 +6,7 @@ function loadRobot() {
 	robot.width = 50;
 	robot.height = 100;
 	robot.image = Textures.load("Pre-Robot.png");
-	world.addChild(robot);
+	//world.addChild(robot);
 
 	//vars that hold where the character should move to
 	//to interact with the object

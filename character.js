@@ -28,6 +28,6 @@ function loadCharacter() {
 		this.y += yd;
 	};
 
-	world.addChild(character);
+	//world.addChild(character);
 	return character;
 }

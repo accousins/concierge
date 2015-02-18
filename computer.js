@@ -6,7 +6,7 @@ function loadComputer() {
 	computer.width = 400;
 	computer.height = 300;
 	computer.image = Textures.load("comp.png");
-	world.addChild(computer);
+	//world.addChild(computer);
 	
 	//vars that hold where the character should move to
 	//to interact with the object
