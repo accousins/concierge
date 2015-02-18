@@ -44,7 +44,7 @@ manager.onMouseDown = function(button) {
 		sprite = sprites[sprite];
 		//check if clicked on a clickable thing
 		if (checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
-			character.moveTo(sprite.moveX, sprite.moveY);
+			sprite.click();
 			console.log("I clicked a thing");
 			break;
 		}

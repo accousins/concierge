@@ -13,5 +13,10 @@ function loadComputer() {
 	computer.moveX = 400;
 	computer.moveY = 500;
 	
+	//What do when clicked on
+	computer.click = function(){
+		character.moveTo(400,500);
+	};
+	
 	return computer;
 }
