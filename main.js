@@ -10,7 +10,10 @@ var busy = false;
 var phone = loadPhone();
 var robot = loadRobot();
 var computer = loadComputer();
+var elevator = loadElevator();
 var character = loadCharacter();
+var rooms = loadRooms();
+var minibot = loadMinibot();
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();

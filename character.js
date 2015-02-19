@@ -17,8 +17,6 @@ function loadCharacter() {
 	character.moveTo = function(x, y) {
 		character.destX = x;
 		character.destY = y;
-		var xd = character.destX - character.x;
-		var yd = character.destY - character.y;
 	};
 
 	character.update = function(d) {
