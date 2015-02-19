@@ -11,6 +11,9 @@ var phone = loadPhone();
 var robot = loadRobot();
 var computer = loadComputer();
 var character = loadCharacter();
+var customers = new List();
+var people = loadPeople();
+customers.push(people);
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -22,6 +25,7 @@ sprites.push(phone);
 sprites.push(robot);
 sprites.push(character);
 sprites.push(computer);
+//sprites.push(customer);
 
 //checkSprite: checks to see if mouse/sprite coordinates are overlapping
 function checkSprite(sprite, x, y) {
@@ -52,3 +56,20 @@ manager.onMouseDown = function(button) {
 	//character.moveTo(gInput.mouse.x, gInput.mouse.y);
 };
 gInput.addMouseDownListener(manager);
+
+//Adds people to the screen
+customerLoop = function(){
+	var time = 0;
+	var spawn = 0;
+	for(i=1; i<1000; i++){		
+		if(time%6000 == 0){
+			var newCust = loadPeople();
+			newCust.y = customers.getAt(spawn).y - people.space;
+			customers.push(newCust);
+			spawn++;
+		}
+		time++;
+		if(time==61) time=0;
+	}
+};
+customerLoop();
