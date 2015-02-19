@@ -15,6 +15,10 @@ var character = loadCharacter();
 var rooms = loadRooms();
 var minibot = loadMinibot();
 
+var customers = new List();
+var people = loadPeople();
+customers.push(people);
+
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
 manager.clicked = false;
