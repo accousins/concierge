@@ -254,3 +254,21 @@ gInput.addFunc(27, function(){
         screenMan.push(pauseMenu);
     }
 });
+
+
+customerLoop = function(){
+	var time = 0;
+	var spawn = 0;
+	for(i=1; i<1000; i++){		
+		if(time%6000 == 0){
+			var newCust = loadPeople();
+			newCust.y = customers.getAt(spawn).y - people.space;
+			customers.push(newCust);
+			spawn++;
+		}
+		time++;
+		if(time==61) time=0;
+	}
+};
+customerLoop();
+
