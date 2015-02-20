@@ -15,13 +15,14 @@ function loadPhone(){
 	//What do when clicked on
 	phone.click = function(){
 		character.moveTo(120,500);
-			if (character.x == phone.x){
-			var text = new TextBox("Where is the pool?");
-			text.x = 10;
-			text.y = 10;
-			text.border = 400;
-			text.fontSize = 15;
-			world.addChild(text);
+		if (character.x == phone.x){
+		  var ptext = new TextBox();
+		  ptext.x = 10;
+		  ptext.y = 10;
+		  ptext.border = 400;
+		  ptext.fontSize = 15;
+		  world.addChild(ptext);
+		  ptext.text = "Where is the Pool?"
 		}
 	};
 	
