@@ -17,6 +17,6 @@ function loadPhone(){
 		character.moveTo(120,500);
 	};
 	
-	world.addChild(phone);
+	//world.addChild(phone);
 	return phone;
 }

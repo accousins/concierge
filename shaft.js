@@ -7,6 +7,5 @@ function loadElevator() {
 	elevator.xoffset = -elevator.width / 2;
 	elevator.yoffset = -elevator.height / 2;
 	elevator.image = Textures.load("ElevatorShaft.png");
-	world.addChild(elevator);
 	return elevator;
 }

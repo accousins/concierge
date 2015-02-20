@@ -38,10 +38,10 @@ function loadRooms() {
 	room4.yoffset = -room4.height / 2;
 	room4.image = Textures.load("RoomBase.png");
 
-	world.addChild(room);
-	world.addChild(room2);
-	world.addChild(room3);
-	world.addChild(room4);
+	// world.addChild(room);
+	// world.addChild(room2);
+	// world.addChild(room3);
+	// world.addChild(room4);
 
 	rooms.push(room);
 	rooms.push(room2);

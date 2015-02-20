@@ -7,6 +7,5 @@ function loadPeople(){
 	people.height = 100;
 	people.space = people.height+40;
 	people.image = Textures.load("Pre-customers.png");
-	world.addChild(people);
 	return people;
 }

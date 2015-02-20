@@ -11,8 +11,8 @@ function loadRobot() {
 	robot.destY = robot.y;
 	robot.xDist = 0;
 	robot.yDist = 0;
-	
-	world.addChild(robot);
+
+	//world.addChild(robot);
 
 	//vars that hold where the character should move to
 	//to interact with the object
