@@ -8,8 +8,8 @@ var busy;
 var phone, robot, computer, character, elevator, rooms, minibot, people;
 var customers = new List();
 var waiting = new TextBox();
-waiting.x = 600;
-waiting.y = 100;
+	waiting.x = 600;
+	waiting.y = 100;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -261,13 +261,7 @@ gInput.addFunc(27, function(){
     }
 });
 
-gameScreen.update = function(d){
-	var rand = Math.random().toFixed(1);
-	console.log(rand);
-	if(rand == 0.5 && customers.length < 20){
-		var newCust = loadPeople();
-		customers.push(newCust);
-	}
+gameScreen.update = function(d){	
 	waiting.text = "Customers waiting:\n"+customers.length;
 	this.updateChildren(d);
 };
