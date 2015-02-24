@@ -271,7 +271,7 @@ gameScreen.update = function(d){
 	waiting.text = "Customers waiting:\n"+customers.length;
 };
 
-//Add people
+//Old function for people; used for reference
 /*customerLoop = function(){
 	var time = 0;
 	var spawn = 0;
