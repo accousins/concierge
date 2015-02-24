@@ -165,7 +165,7 @@ mainMenu.init = function(){
     newGame.center = true;
     newGame.label.dropShadow = true;
     newGame.label.fontSize = 30;
-    newGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    newGame.setLabelColors("#000000", "#ffffff", "#ff0000");
     this.gui.addChild(newGame);
     
     newGame.func = function(){
