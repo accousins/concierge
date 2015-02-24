@@ -7,6 +7,9 @@ var sprites = new Array();
 var busy;
 var phone, robot, computer, character, elevator, rooms, minibot, people;
 var customers = new List();
+var waiting = new TextBox();
+waiting.x = 600;
+waiting.y = 100;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -44,7 +47,6 @@ manager.onMouseDown = function(button) {
 };
 
 gInput.addMouseDownListener(manager);
-
 
 //Menu System
 function Screen(alwaysUpdate, alwaysDraw) {
@@ -174,7 +176,7 @@ mainMenu.init = function(){
     
 };
 
-var gameScreen = new Screen(false, true);
+var gameScreen = new Screen(true, true);
 //Game Background here:
 //gameScreen.image = Textures.load("http://www.jar42.com/brine/laststop/images/grass.png");
 
@@ -196,6 +198,7 @@ gameScreen.init = function(){
 	this.stage.addChild(computer);
 	character = loadCharacter();
 	this.stage.addChild(character);
+	this.stage.addChild(waiting);
 	
 	rooms = loadRooms();
 	for(var i = 0; i < rooms.length; i++){
@@ -208,12 +211,15 @@ gameScreen.init = function(){
 	this.stage.addChild(minibot);
 	people = loadPeople();
 	this.stage.addChild(people);
+	customers.push(people);
 
 	//clickable things
 	sprites.push(phone);
 	sprites.push(robot);
 	sprites.push(character);
 	sprites.push(computer);
+	sprites.push(people);
+	
 };
 
 var pauseMenu = new Screen(false, true);
@@ -255,8 +261,18 @@ gInput.addFunc(27, function(){
     }
 });
 
+gameScreen.update = function(d){
+	var rand = Math.random().toFixed(1);
+	console.log(rand);
+	if(rand == 0.5){
+		var newCust = loadPeople();
+		customers.push(newCust);
+	}
+	waiting.text = "Customers waiting:\n"+customers.length;
+};
 
-customerLoop = function(){
+//Old function for people; used for reference
+/*customerLoop = function(){
 	var time = 0;
 	var spawn = 0;
 	for(i=1; i<1000; i++){		
@@ -269,6 +285,4 @@ customerLoop = function(){
 		time++;
 		if(time==61) time=0;
 	}
-};
-customerLoop();
-
+};*/
