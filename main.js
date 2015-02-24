@@ -269,6 +269,7 @@ gameScreen.update = function(d){
 		customers.push(newCust);
 	}
 	waiting.text = "Customers waiting:\n"+customers.length;
+	this.updateChildren(d);
 };
 
 //Old function for people; used for reference
