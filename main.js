@@ -39,7 +39,7 @@ manager.onMouseDown = function(button) {
 		//check if clicked on a clickable thing
 		if (checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
 			sprite.click();
-			console.log("I clicked a thing");
+			// console.log("I clicked a thing");
 			break;
 		}
 	}
@@ -198,6 +198,8 @@ gameScreen.init = function(){
 	this.stage.addChild(computer);
 	character = loadCharacter();
 	this.stage.addChild(character);
+	deskQ = loadDeskQ();
+	this.stage.addChild(deskQ);
 	this.stage.addChild(waiting);
 	
 	rooms = loadRooms();
@@ -219,7 +221,7 @@ gameScreen.init = function(){
 	sprites.push(character);
 	sprites.push(computer);
 	sprites.push(people);
-	
+	sprites.push(deskQ);
 };
 
 var pauseMenu = new Screen(false, true);

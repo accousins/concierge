@@ -10,13 +10,17 @@ function loadPeople(){
 	
 	people.update = function(d){
 		var rand = Math.random().toFixed(1);
-		console.log(rand);
+		// console.log(rand);
 		if(rand == 0.5 && customers.length < 20){
 		var newCust = loadPeople();
 		customers.push(newCust);
 		}
 	};
 	return people;
+	
+	people.click = function(){
+		console.log("I was chosen!");
+	};
 }
 
 function loadWaiting(){
