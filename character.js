@@ -13,15 +13,28 @@ function loadCharacter() {
 	character.speed = 0.05;
 	character.destX = character.x;
 	character.destY = character.y;
+	character.xDist = 0;
+	character.yDist = 0;
 
 	character.moveTo = function(x, y) {
+		/*if(this.x != x || this.y != y){
+			this.destX = x;
+			this.destY = y;
+			this.xDist = this.destX - this.x;
+			this.yDist = this.destY - this.y;
+			this.moving = true;
+		}*/
 		character.destX = x;
 		character.destY = y;
 	};
 
 	character.update = function(d) {
-		var xd = ((this.destX - this.x) * this.speed);
-		var yd = ((this.destY - this.y) * this.speed);
+			/*var xd = Math.round(this.xDist / 100);
+			var yd = Math.round(this.yDist / 100);
+			this.x += xd;
+			this.y += yd;*/
+		var xd = Math.round((this.destX - this.x) * this.speed);
+		var yd = Math.round((this.destY - this.y) * this.speed);
 		this.x += xd;
 		this.y += yd;
 	};

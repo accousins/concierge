@@ -287,7 +287,7 @@ mbMove = function(){
 
 gameScreen.update = function(d){	
 	waiting.text = "Customers waiting:\n"+customers.length;
-	console.log(robot.command);
+	//console.log(character.x, character.y);
 	mbMove();
 	this.updateChildren(d);
 };
