@@ -6,8 +6,6 @@ function loadMinibot(){
 	minibot.height = 10;
 	minibot.xoffset = -minibot.width / 2;
 	minibot.yoffset = -minibot.height / 2;
-	minibot.image = Textures.load("minibot.png");
-	
-	
+	minibot.image = Textures.load("minibot.png");	
 	return minibot;
 }

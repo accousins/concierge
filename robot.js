@@ -1,6 +1,7 @@
 //this class will handle the robot object
 function loadRobot() {
 	var robot = new Sprite();
+	robot.command;
 	robot.x = 15;
 	robot.y = 500;
 	robot.width = 50;
@@ -22,9 +23,9 @@ function loadRobot() {
 	//What do when clicked on
 	robot.click = function(){
 		character.moveTo(65,500);
-		var command = prompt("Where should I go?", "");
-		this.moveTo(-50,500);
-	};
+		this.command = prompt("Which room number should I visit?", "");		
+		//this.moveTo(-50,500);
+	};	
 	
 	robot.moveTo = function(x, y) {
 		this.destX = x;

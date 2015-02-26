@@ -23,6 +23,3 @@ function loadPeople(){
 	};
 }
 
-function loadWaiting(){
-	
-}
