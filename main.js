@@ -263,32 +263,11 @@ gInput.addFunc(27, function(){
     }
 });
 
-//Minibot moving
-mbMove = function(){
-	switch(robot.command){
-		case "1":
-			minibot.x = rooms[0].x;
-			minibot.y = rooms[0].y;
-			break;
-		case "2":
-			minibot.x = rooms[1].x;
-			minibot.y = rooms[1].y;			
-			break;
-		case "3":
-			minibot.x = rooms[2].x;
-			minibot.y = rooms[2].y;
-			break;
-		case "4":
-			minibot.x = rooms[3].x;
-			minibot.y = rooms[3].y;
-			break;
-	}
-};
+
 
 gameScreen.update = function(d){	
 	waiting.text = "Customers waiting:\n"+customers.length;
 	//console.log(character.x, character.y);
-	mbMove();
 	this.updateChildren(d);
 };
 
