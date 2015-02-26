@@ -15,28 +15,39 @@ function loadCharacter() {
 	character.destY = character.y;
 	character.xDist = 0;
 	character.yDist = 0;
+	character.moving = false;
 
 	character.moveTo = function(x, y) {
-		/*if(this.x != x || this.y != y){
+		if(this.moving == false){
+		if(this.x != x || this.y != y){
 			this.destX = x;
 			this.destY = y;
 			this.xDist = this.destX - this.x;
 			this.yDist = this.destY - this.y;
 			this.moving = true;
-		}*/
-		character.destX = x;
-		character.destY = y;
+		 }
+		}
+		//character.destX = x;
+		//character.destY = y;
 	};
 
 	character.update = function(d) {
+		if(this.moving == true){
 			/*var xd = Math.round(this.xDist / 100);
 			var yd = Math.round(this.yDist / 100);
-			this.x += xd;
-			this.y += yd;*/
-		var xd = Math.round((this.destX - this.x) * this.speed);
+			//console.log(xd, yd);*/
+			var xTravel = Math.round((this.destX - this.x) * this.speed);
+			var yTravel = Math.round((this.destY - this.y) * this.speed);
+			this.x += xTravel;
+			this.y += yTravel;			
+			if(xTravel == 0 && yTravel == 0){
+				this.moving = false;
+			}
+		}
+		/*var xd = Math.round((this.destX - this.x) * this.speed);
 		var yd = Math.round((this.destY - this.y) * this.speed);
 		this.x += xd;
-		this.y += yd;
+		this.y += yd;*/
 	};
 
 	//world.addChild(character);

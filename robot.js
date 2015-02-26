@@ -42,6 +42,7 @@ function loadRobot() {
 		if(this.moving == true){
 			var xd = Math.round(this.xDist / 100);
 			var yd = Math.round(this.yDist / 100);
+			console.log(xd, yd);
 			this.x += xd;
 			this.y += yd;
 			if(this.x == this.destX && this.y == this.destY){
