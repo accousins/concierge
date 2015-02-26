@@ -27,15 +27,10 @@ function loadCharacter() {
 				this.busy = true;
 		 	}
 		}
-		//character.destX = x;
-		//character.destY = y;
 	};
 
 	character.update = function(d) {
 		if(this.moving == true){
-			/*var xd = Math.round(this.xDist / 100);
-			var yd = Math.round(this.yDist / 100);
-			//console.log(xd, yd);*/
 			this.xTravel = Math.round((this.destX - this.x) * this.speed);
 			this.yTravel = Math.round((this.destY - this.y) * this.speed);
 			this.x += this.xTravel;
@@ -44,13 +39,7 @@ function loadCharacter() {
 				this.moving = false;
 				this.busy = false;
 			}
-		}
-		/*var xd = Math.round((this.destX - this.x) * this.speed);
-		var yd = Math.round((this.destY - this.y) * this.speed);
-		this.x += xd;
-		this.y += yd;*/
+		}		
 	};
-
-	//world.addChild(character);
 	return character;
 }
