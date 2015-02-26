@@ -8,24 +8,38 @@ function loadCharacter() {
 	character.height = 200;
 	character.xoffset = -character.width / 2;
 	character.yoffset = -character.height / 2;
+	character.busy = false;
 	character.image = Textures.load("MainCharacter.png");
 
 	character.speed = 0.05;
 	character.destX = character.x;
 	character.destY = character.y;
+	character.xTravel = 0;
+	character.yTravel = 0;
+	character.moving = false;
 
 	character.moveTo = function(x, y) {
-		character.destX = x;
-		character.destY = y;
+		if(this.busy == false){
+			if(this.x != x || this.y != y){
+				this.destX = x;
+				this.destY = y;
+				this.moving = true;
+				this.busy = true;
+		 	}
+		}
 	};
 
 	character.update = function(d) {
-		var xd = ((this.destX - this.x) * this.speed);
-		var yd = ((this.destY - this.y) * this.speed);
-		this.x += xd;
-		this.y += yd;
+		if(this.moving == true){
+			this.xTravel = Math.round((this.destX - this.x) * this.speed);
+			this.yTravel = Math.round((this.destY - this.y) * this.speed);
+			this.x += this.xTravel;
+			this.y += this.yTravel;			
+			if(this.xTravel == 0 && this.yTravel == 0){
+				this.moving = false;
+				this.busy = false;
+			}
+		}		
 	};
-
-	//world.addChild(character);
 	return character;
 }

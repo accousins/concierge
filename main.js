@@ -263,8 +263,11 @@ gInput.addFunc(27, function(){
     }
 });
 
+
+
 gameScreen.update = function(d){	
 	waiting.text = "Customers waiting:\n"+customers.length;
+	//console.log(character.x, character.y);
 	this.updateChildren(d);
 };
 
