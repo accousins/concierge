@@ -18,6 +18,8 @@ function loadPhone(){
 	phoneQuestion.image = Textures.load("phone_question.png");
 	phoneQuestion.visible = false;
 	
+	
+	
 	var phones = [phone, phoneQuestion];
 	
 	//What do when clicked on
