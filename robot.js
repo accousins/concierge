@@ -72,7 +72,6 @@ function loadRobot() {
 				robot.goHome();
 			}
 		}
-		console.log(robot.moving, robot.x, robot.y);
 	};
 	return robot;
 }
