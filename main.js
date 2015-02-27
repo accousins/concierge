@@ -280,6 +280,10 @@ gameScreen.update = function(d){
 		deskQ.visible = true;
 		people.active = false;
 	}
+	if(character.x == robot.x && robot.active){
+		robot.active = false;
+		robot.arrived();
+	}
 };
 
 //Old function for people; used for reference

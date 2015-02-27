@@ -17,14 +17,21 @@ function loadRobot() {
 	robot.yTravel = 0;
 	robot.moving = false;
 	
+	robot.active = false;
+	
 	//What do when clicked on
 	robot.click = function(){
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
-			this.command = prompt("Which room number should I visit?", "");			
-			this.moveTo(-70,500);
+			robot.active = true;
 		}
 	};	
+	
+	//called when the character arrives at the robot
+	robot.arrived = function(){
+		this.command = prompt("Which room number should I visit?", "");			
+		this.moveTo(-70,500);
+	};
 	
 	robot.moveTo = function(x, y) {
 		if(this.busy == false){
