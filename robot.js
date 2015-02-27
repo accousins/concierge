@@ -22,17 +22,15 @@ function loadRobot() {
 	robot.click = function(){
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
-			this.command = prompt("Which room number should I visit?", "");			
-			this.moveTo(50,500);
-			robot.busy = true;
 		}
 	};	
 	
 	//called when the character arrives at the robot
-	/*robot.arrived = function(){
+	robot.arrived = function(){
 		this.command = prompt("Which room number should I visit?", "");			
 		this.moveTo(-70,500);
-	};*/
+		robot.busy = true;
+	};
 	
 	robot.moveTo = function(x, y) {
 		if(this.busy == false){
