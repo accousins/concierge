@@ -16,10 +16,14 @@ function loadPeople(){
 		customers.push(newCust);
 		}
 	};
-	return people;
 	
 	people.click = function(){
+		character.moveTo(700, 500);
+		deskQ.x = 625;
+		deskQ.y = 250;
 		console.log("I was chosen!");
 	};
+	
+	return people;
 }
 
