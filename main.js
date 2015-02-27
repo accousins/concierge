@@ -178,7 +178,7 @@ mainMenu.init = function(){
 
 var gameScreen = new Screen(true, true);
 //Game Background here:
-//gameScreen.image = Textures.load("http://www.jar42.com/brine/laststop/images/grass.png");
+gameScreen.image = Textures.load("background.png");
 
 //Override the empty init function to set some properties
 gameScreen.init = function(){
