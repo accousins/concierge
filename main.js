@@ -5,7 +5,7 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
-var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQuestion;
+var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ;
 var customers = new List();
 var waiting = new TextBox();
 	waiting.x = 600;
@@ -190,14 +190,10 @@ gameScreen.init = function(){
 	busy = false;
 
 	//call load functions for all objects
-	var phones = loadPhone();
-	phone = phones[0];
-	phoneQuestion = phones[1];
+	phone = loadPhone();
 	this.stage.addChild(phone);
-	if (phoneQuestion.visible == false){
-	this.stage.addChild(phoneQuestion);
-	}
-	
+	phoneQ = loadPhoneQ();
+	this.stage.addChild(phoneQ);
 	robot = loadRobot();
 	this.stage.addChild(robot);
 	computer = loadComputer();
@@ -228,6 +224,7 @@ gameScreen.init = function(){
 	sprites.push(computer);
 	sprites.push(people);
 	sprites.push(deskQ);
+	sprites.push(phoneQ);
 };
 
 var pauseMenu = new Screen(false, true);
@@ -275,8 +272,13 @@ gameScreen.update = function(d){
 	waiting.text = "Customers waiting:\n"+customers.length;
 	//console.log(character.x, character.y);
 	this.updateChildren(d);
-	if (character.x == phone.x){
-		gameScreen.stage.addchild(phoneQuestion);
+	if (character.x == phone.x && phone.active){
+		phoneQ.visible = true;
+		phone.active = false;
+	}
+	if(character.x == people.x && people.active){
+		deskQ.visible = true;
+		people.active = false;
 	}
 };
 
