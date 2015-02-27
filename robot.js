@@ -17,11 +17,14 @@ function loadRobot() {
 	robot.destY = robot.y;
 	robot.xTravel = 0;
 	robot.yTravel = 0;
-	robot.moving = false;	
+	robot.moving = false;
+	robot.active = false;
+	
 	//What do when clicked on
 	robot.click = function(){
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
+			robot.active = true;
 		}
 	};	
 	
@@ -70,7 +73,7 @@ function loadRobot() {
 				robot.goHome();
 			}
 		}
-		console.log(robot.moving, robot.x, robot.y);
+		//console.log(robot.moving, robot.x, robot.y);
 	};
 	return robot;
 }
