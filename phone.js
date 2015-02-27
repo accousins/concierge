@@ -6,6 +6,9 @@ function loadPhone(){
 	phone.width = 25;
 	phone.height = 25;
 	phone.image = Textures.load("phone.png");
+	phone.active = false;
+	
+	var ring = Math.floor((Math.random() *100)+ 1);
 	
 	var phoneQuestion = new Sprite();
 	phoneQuestion.x = 50;
@@ -21,7 +24,7 @@ function loadPhone(){
 	phone.click = function(){
 		character.moveTo(90,500);
 		console.log(character.x,character.y);
-		if (character.xTravel == 0){
+		if (character.xTravel == 0 && ring >= 95){
 			phoneQuestion.visible = true;
 		}
 	};
