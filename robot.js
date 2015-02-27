@@ -22,9 +22,9 @@ function loadRobot() {
 	robot.click = function(){
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
-			robot.busy = true;
 			this.command = prompt("Which room number should I visit?", "");			
 			this.moveTo(50,500);
+			robot.busy = true;
 		}
 	};	
 	
