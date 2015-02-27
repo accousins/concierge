@@ -28,14 +28,23 @@ function loadCharacter() {
 		 	}
 		}
 	};
-
+	
+	character.calcMove = function(){
+		if(this.destX - this.x < 0){
+			this.xTravel = Math.floor((this.destX - this.x) * this.speed);			
+		} else this.xTravel = Math.ceil((this.destX - this.x) * this.speed);
+		
+		if(this.destY - this.y < 0){
+			this.yTravel = Math.floor((this.destY - this.y) * this.speed);	
+		} else this.yTravel = Math.ceil((this.destY - this.y) * this.speed);
+	};
+	
 	character.update = function(d) {
 		if(this.moving == true){
-			this.xTravel = Math.round((this.destX - this.x) * this.speed);
-			this.yTravel = Math.round((this.destY - this.y) * this.speed);
+			character.calcMove();
 			this.x += this.xTravel;
 			this.y += this.yTravel;			
-			if(this.xTravel == 0 && this.yTravel == 0){
+			if(this.x == this.destX && this.y == this.destY){
 				this.moving = false;
 				this.busy = false;
 			}

@@ -5,6 +5,8 @@ function loadRobot() {
 	robot.moving = false;
 	robot.x = 15;
 	robot.y = 500;
+	robot.homeX = 15;
+	robot.homeY = 500;
 	robot.width = 50;
 	robot.height = 100;
 	robot.busy = false;
@@ -22,7 +24,7 @@ function loadRobot() {
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
 			this.command = prompt("Which room number should I visit?", "");			
-			this.moveTo(-70,500);
+			this.moveTo(50,500);
 		}
 	};	
 	
@@ -37,17 +39,34 @@ function loadRobot() {
 		}
 	};
 	
+	robot.calcMove = function(){
+		if(this.destX - this.x < 0){
+			this.xTravel = Math.floor((this.destX - this.x) * this.speed);			
+		} else this.xTravel = Math.ceil((this.destX - this.x) * this.speed);
+		
+		if(this.destY - this.y < 0){
+			this.yTravel = Math.floor((this.destY - this.y) * this.speed);	
+		} else this.yTravel = Math.ceil((this.destY - this.y) * this.speed);
+	};
+	
+	robot.goHome = function(){
+		if(this.x == this.destX && this.y == this.destY && this.busy == false){
+			this.moveTo(robot.homeX, robot.homeY);
+		}
+	};
+		
 	robot.update = function(d) {
 		if(this.moving == true){
-			this.xTravel = Math.round((this.destX - this.x) * this.speed);
-			this.yTravel = Math.round((this.destY - this.y) * this.speed);
+			robot.calcMove();
 			this.x += this.xTravel;
 			this.y += this.yTravel;
 			if(this.x == this.destX && this.y == this.destY){
 				this.moving = false;
 				this.busy = false;
+				robot.goHome();
 			}
 		}
+		console.log(robot.moving, robot.x, robot.y);
 	};
 	return robot;
 }
