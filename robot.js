@@ -17,22 +17,23 @@ function loadRobot() {
 	robot.destY = robot.y;
 	robot.xTravel = 0;
 	robot.yTravel = 0;
-	robot.moving = false;	
+	robot.moving = false;
+	robot.active = false;
+	
 	//What do when clicked on
 	robot.click = function(){
 		if(character.busy == false){
 			character.moveTo(this.x, this.y);
-			this.command = prompt("Which room number should I visit?", "");			
-			this.moveTo(50,500);
-			robot.busy = true;
+			robot.active = true;
 		}
 	};	
 	
 	//called when the character arrives at the robot
-	/*robot.arrived = function(){
+	robot.arrived = function(){
 		this.command = prompt("Which room number should I visit?", "");			
 		this.moveTo(-70,500);
-	};*/
+		robot.busy = true;
+	};
 	
 	robot.moveTo = function(x, y) {
 		if(this.busy == false){
@@ -72,6 +73,10 @@ function loadRobot() {
 				robot.goHome();
 			}
 		}
+<<<<<<< HEAD
+=======
+		//console.log(robot.moving, robot.x, robot.y);
+>>>>>>> b700c7571d5fda8917c98d5bfac46959d06db6fc
 	};
 	return robot;
 }
