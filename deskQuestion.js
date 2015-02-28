@@ -1,6 +1,6 @@
 function loadDeskQ() {
 	var deskQ = new Sprite();
-	deskQ.x = 810;
+	deskQ.x = 650;
 	deskQ.y = 250;
 	deskQ.width = 150;
 	deskQ.height = 150;
