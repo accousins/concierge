@@ -280,11 +280,6 @@ gameScreen.update = function(d){
 		people.active = false;
 		console.log("I've arrived!");
 	}
-<<<<<<< HEAD
-	console.log(character.x, people.x, deskQ.visible);
-=======
-console.log(character.x, people.x);
->>>>>>> 125193c15b0a4cba4ffb5a6e228e79092f9e12ba
 	if(character.x == robot.x && robot.active){
 		robot.active = false;
 		robot.arrived();
