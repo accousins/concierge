@@ -5,7 +5,7 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
-var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ;
+var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ, phoneRing;
 var customers = new List();
 var waiting = new TextBox();
 	waiting.x = 600;
@@ -190,8 +190,11 @@ gameScreen.init = function(){
 	busy = false;
 
 	//call load functions for all objects
-	phone = loadPhone();
+	var phones = loadPhone();
+	phone = phones[0];
+	phoneRing = phones[1];
 	this.stage.addChild(phone);
+	this.stage.addChild(phoneRing);
 	phoneQ = loadPhoneQ();
 	this.stage.addChild(phoneQ);
 	robot = loadRobot();
@@ -272,8 +275,12 @@ gameScreen.update = function(d){
 	waiting.text = "Customers waiting:\n"+customers.length;
 	this.updateChildren(d);
 	if (character.x == phone.x && phone.active){
-		phoneQ.visible = true;
+		//phoneQ.visible = true;
 		phone.active = false;
+		if (phone.ringing){
+			phoneQ.visible = true;
+			phoneRing.visible = false;
+		}
 	}
 	if(character.x == people.x && people.active){
 		deskQ.visible = true;
@@ -284,6 +291,9 @@ console.log(character.x, people.x);
 	if(character.x == robot.x && robot.active){
 		robot.active = false;
 		robot.arrived();
+	}
+	if (phone.ringing){
+		phoneRing.visible = true;
 	}
 };
 
