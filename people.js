@@ -21,8 +21,7 @@ function loadPeople(){
 		character.moveTo(700, 500);
 		console.log("I was chosen!");
 		people.active = true;
-	};
-	
+	};	
 	return people;
 }
 
