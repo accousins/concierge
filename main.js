@@ -278,8 +278,9 @@ gameScreen.update = function(d){
 	if(character.x == people.x && people.active){
 		deskQ.visible = true;
 		people.active = false;
+		console.log("I've arrived!");
 	}
-console.log(character.x, robot.x);
+console.log(character.x, people.x);
 	if(character.x == robot.x && robot.active){
 		robot.active = false;
 		robot.arrived();
