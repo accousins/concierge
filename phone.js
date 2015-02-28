@@ -23,9 +23,10 @@ function loadPhone() {
 	phone.update = function(d) {
 		if (phone.ringing == false) {
 			act = Math.floor((Math.random() * 100) + 1);
+			console.log(act);
 			if (act >= 95) {
 				phone.ringing = true;
-				phoneRing.visble = true;
+				console.log("the phone is ring");
 			}
 		}
 

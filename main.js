@@ -291,5 +291,8 @@ console.log(character.x, robot.x);
 		robot.active = false;
 		robot.arrived();
 	}
+	if (phone.ringing){
+		phoneRing.visible = true;
+	}
 };
 
