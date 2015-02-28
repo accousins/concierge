@@ -73,10 +73,6 @@ function loadRobot() {
 				robot.goHome();
 			}
 		}
-<<<<<<< HEAD
-=======
-		//console.log(robot.moving, robot.x, robot.y);
->>>>>>> b700c7571d5fda8917c98d5bfac46959d06db6fc
 	};
 	return robot;
 }
