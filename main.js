@@ -5,6 +5,10 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
+//time
+var time = 3;
+var timePause = false;
+var currLevel = 1;
 //the different objects in the world
 var phone,
     robot,
@@ -23,6 +27,13 @@ var customers = new List();
 var waiting = new TextBox();
 waiting.x = 600;
 waiting.y = 100;
+
+//time text for each level
+var timeText = new TextBox();
+timeText.x = 595;
+timeText.y = 5;
+timeText.fontSize = 32;
+timeText.text = "Time: 0";
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -218,7 +229,9 @@ gameScreen.init = function() {
 	this.stage.addChild(character);
 	deskQ = loadDeskQ();
 	this.stage.addChild(deskQ);
+	//text boxes
 	this.stage.addChild(waiting);
+	this.stage.addChild(timeText);
 
 	rooms = loadRooms();
 	for (var i = 0; i < rooms.length; i++) {
@@ -243,6 +256,7 @@ gameScreen.init = function() {
 
 //essentially restarts the game with a new level.
 gameScreen.newLevel = function(level) {
+	currLevel = level;
 	//empty the customers list
 	while (customers.length > 0) {
 		customers.pop();
@@ -252,6 +266,8 @@ gameScreen.newLevel = function(level) {
 	phoneRing.visible = false;
 	people.newLevel(level);
 	character.newLevel(level);
+	time = 3;
+	timePause = false;
 };
 
 var pauseMenu = new Screen(false, true);
@@ -273,10 +289,6 @@ pauseMenu.init = function() {
 	this.gui.addChild(resumeGame);
 	resumeGame.func = function() {
 		screenMan.remove(pauseMenu);
-		//resume game things
-		phone.pauseTime = false;
-		people.pauseTime = false;
-		character.paused = false;
 	};
 
 	var returnToMenu = new TextButton("Main Menu");
@@ -289,24 +301,50 @@ pauseMenu.init = function() {
 	returnToMenu.func = function() {
 		screenMan.remove(pauseMenu);
 		screenMan.remove(gameScreen);
+		resumeGame();
 	};
 };
 
-pauseMenu.update = function(d) {
-	//pause things in the main game
-	character.paused = true;
-	phone.pauseTime = true;
-	people.pauseTime = true;
+var levelComplete = new Screen(false, true);
+levelComplete.init = function() {
+
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
+
+	this.gui.x = canvas.width / 2;
+	this.gui.y = canvas.height / 2;
+
+	var nextLevel = new TextButton("Next Level");
+	nextLevel.center = true;
+	nextLevel.label.dropShadow = true;
+	nextLevel.label.fontSize = 30;
+	nextLevel.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+	this.gui.addChild(nextLevel);
+	nextLevel.func = function() {
+		screenMan.remove(levelComplete);
+		gameScreen.newLevel(currLevel + 1);
+	};
+
 };
 
 gInput.addFunc(27, function() {
 	if (screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)) {
 		screenMan.push(pauseMenu);
+		pauseGame();
 	}
 });
 
 gameScreen.update = function(d) {
 	waiting.text = "Customers waiting:\n" + customers.length;
+	if (!timePause) {
+		time -= (d * MSPF) / 1000;
+	}
+	timeText.text = "Time: " + Math.round(time);
+	if (time <= 0) {
+		pauseGame();
+		screenMan.push(levelComplete);
+	}
 	this.updateChildren(d);
 	if (character.x == phone.x && phone.active) {
 		phone.active = false;
@@ -316,9 +354,6 @@ gameScreen.update = function(d) {
 			phone.arrived();
 		}
 	}
-	if(character.x != phone.x && phoneQ.visible){
-		phoneQ.visible = false;
-	}
 	if (character.x == people.x && people.active) {
 		people.active = false;
 		console.log("I've arrived!");
@@ -326,7 +361,7 @@ gameScreen.update = function(d) {
 			deskQ.visible = true;
 		}
 	}
-	if(character.x != people.x && deskQ.visible){
+	if (character.x != people.x && deskQ.visible) {
 		deskQ.visible = false;
 	}
 	if (character.x == robot.x && robot.active) {
@@ -343,3 +378,17 @@ gameScreen.update = function(d) {
 	}
 };
 
+pauseGame = function() {
+	//pause things in the main game
+	character.paused = true;
+	phone.pauseTime = true;
+	people.pauseTime = true;
+	timePause = true;
+};
+resumeGame = function() {
+	//resume game things
+	phone.pauseTime = false;
+	people.pauseTime = false;
+	character.paused = false;
+	timePause = false;
+};
