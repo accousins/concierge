@@ -216,7 +216,6 @@ gameScreen.init = function(){
 	this.stage.addChild(minibot);
 	people = loadPeople();
 	this.stage.addChild(people);
-	customers.push(people);
 
 	//clickable things
 	sprites.push(phone);

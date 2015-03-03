@@ -18,7 +18,7 @@ function loadPhone() {
 	phoneRing.image = Textures.load("ringing_phone.png");
 	phoneRing.visible = false;
 	
-	phone.time = 5;
+	phone.time = 3 + Math.floor(Math.random() * 5);
 
 	//used to count down until the phone rings
 	phone.update = function(d) {
@@ -35,7 +35,7 @@ function loadPhone() {
 	//what happens when the phone is ringing and the player arrives there
 	phone.arrived = function(){
 			//Time between phone calls
-			phone.time = 10;
+			phone.time = 5 + Math.floor(Math.random() * 10);
 			phone.ringing = false;
 	};
 	

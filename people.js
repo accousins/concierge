@@ -9,14 +9,14 @@ function loadPeople(){
 	people.image = Textures.load("Pre-customers.png");
 	people.visible = false;
 	people.active = false;
-	people.time = 5;
+	people.time = 3 + Math.floor(Math.random() * 5);
 	
 	people.update = function(d){
 		people.time -= (d*MSPF)/1000;
 		if(people.time <= 0){
 		var newCust = loadPeople();
 		customers.push(newCust);
-		people.time = 5;
+		people.time = 5 + Math.floor(Math.random() * 10);
 		}
 	};
 	
