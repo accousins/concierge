@@ -7,13 +7,16 @@ function loadPeople(){
 	people.height = 100;
 	people.space = people.height+40;
 	people.image = Textures.load("Pre-customers.png");
+	people.visible = false;
 	people.active = false;
+	people.time = 5;
 	
 	people.update = function(d){
-		var rand = Math.random().toFixed(1);
-		if(rand == 0.5 && customers.length < 20){
+		people.time -= (d*MSPF)/1000;
+		if(people.time <= 0){
 		var newCust = loadPeople();
 		customers.push(newCust);
+		people.time = 5;
 		}
 	};
 	
