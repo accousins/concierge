@@ -26,6 +26,7 @@ function loadPhone() {
 			phone.time -= (d*MSPF)/1000;
 			if (phone.time <= 0) {
 				phone.ringing = true;
+				sArray[0].play();
 				console.log("the phone is ring");
 			}
 		}

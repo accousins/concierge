@@ -5,7 +5,7 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
-var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ, phoneRing;
+var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ, phoneRing, sArray;
 var customers = new List();
 var waiting = new TextBox();
 	waiting.x = 600;
@@ -204,6 +204,8 @@ gameScreen.init = function(){
 	deskQ = loadDeskQ();
 	this.stage.addChild(deskQ);
 	this.stage.addChild(waiting);
+	sArray = loadSounds();
+	this.stage.addChild(sArray);
 	
 	rooms = loadRooms();
 	for(var i = 0; i < rooms.length; i++){
