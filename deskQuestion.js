@@ -12,14 +12,17 @@ function loadDeskQ() {
 		if (dy >= 75 && dy <= 99) {
 			console.log("you picked A");
 			deskQ.visible = false;
+			customers.pop();
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
 			deskQ.visible = false;
+			customers.pop();
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
 			deskQ.visible = false;
+			customers.pop();
 		}
 	};
 
