@@ -22,6 +22,7 @@ function loadDeskQ() {
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
+			lives.val = 0;
 			deskQ.visible = false;
 			customers.pop();
 		}

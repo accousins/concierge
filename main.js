@@ -13,8 +13,7 @@ var waiting = new TextBox();
 	
 var lives = new TextBox();
 	lives.x = 200;
-	lives.y = 10;
-	lives.val = 5;	
+	lives.y = 10;	
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -175,8 +174,38 @@ mainMenu.init = function(){
     
     newGame.func = function(){
         screenMan.push(gameScreen);
+        lives.val = 5;
     };
     
+};
+
+var gameOver = new Screen(false, false);
+gameOver.init = function(){
+	this.width = canvas.width;
+    this.height = canvas.height;
+    
+    var gameOverScreen = new Sprite();
+    gameOverScreen.width = 600;
+    gameOverScreen.height = 400;
+    gameOverScreen.x = 100;
+    gameOverScreen.y = 100;
+    gameOverScreen.image = Textures.load("gameover.png");
+    this.stage.addChild(gameOverScreen);
+    
+    this.gui.x = canvas.width/2;
+    this.gui.y = canvas.height/2;
+    
+    var returnToMenu = new TextButton("Main Menu");
+    returnToMenu.y = 50;
+    returnToMenu.center = true;
+    returnToMenu.label.dropShadow = true;
+    returnToMenu.label.fontSize = 30;
+    returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+    this.gui.addChild(returnToMenu);
+    returnToMenu.func = function(){
+		screenMan.remove(gameOver);
+        screenMan.remove(gameScreen);
+    };
 };
 
 var gameScreen = new Screen(true, true);
@@ -209,7 +238,9 @@ gameScreen.init = function(){
 	deskQ = loadDeskQ();
 	this.stage.addChild(deskQ);
 	this.stage.addChild(waiting);
+	
 	this.stage.addChild(lives);
+	lives.val = 5;
 	
 	rooms = loadRooms();
 	for(var i = 0; i < rooms.length; i++){
@@ -278,6 +309,9 @@ gameScreen.update = function(d){
 	
 	if(lives.val > 5){
 		lives.val = 5;
+	}
+	if(lives.val <= 0){
+		screenMan.push(gameOver);
 	}
 	lives.text = "Stars: " + lives.val;
 	
