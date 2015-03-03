@@ -17,25 +17,35 @@ function loadPhone() {
 	phoneRing.height = 25;
 	phoneRing.image = Textures.load("ringing_phone.png");
 	phoneRing.visible = false;
+	
+	phone.time = 3 + Math.floor(Math.random() * 5);
 
-	var phones = [phone, phoneRing];
-
+	//used to count down until the phone rings
 	phone.update = function(d) {
 		if (phone.ringing == false) {
-			act = Math.floor((Math.random() * 100) + 1);
-			console.log(act);
-			if (act >= 95) {
+			phone.time -= (d*MSPF)/1000;
+			if (phone.time <= 0) {
 				phone.ringing = true;
 				console.log("the phone is ring");
 			}
 		}
 
 	};
+	
+	//what happens when the phone is ringing and the player arrives there
+	phone.arrived = function(){
+			//Time between phone calls
+			phone.time = 5 + Math.floor(Math.random() * 10);
+			phone.ringing = false;
+	};
+	
 	//What do when clicked on
 	phone.click = function() {
 		character.moveTo(this.x, this.y);
 		phone.active = true;
 	};
-
+	
+	var phones = [phone, phoneRing];
+	
 	return phones;
 }

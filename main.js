@@ -39,11 +39,9 @@ manager.onMouseDown = function(button) {
 		//check if clicked on a clickable thing
 		if (checkSprite(sprite, gInput.mouse.x, gInput.mouse.y)) {
 			sprite.click();
-			// console.log("I clicked a thing");
 			break;
 		}
 	}
-	//character.moveTo(gInput.mouse.x, gInput.mouse.y);
 };
 
 gInput.addMouseDownListener(manager);
@@ -218,12 +216,10 @@ gameScreen.init = function(){
 	this.stage.addChild(minibot);
 	people = loadPeople();
 	this.stage.addChild(people);
-	customers.push(people);
 
 	//clickable things
 	sprites.push(phone);
 	sprites.push(robot);
-	sprites.push(character);
 	sprites.push(computer);
 	sprites.push(people);
 	sprites.push(deskQ);
@@ -275,25 +271,32 @@ gameScreen.update = function(d){
 	waiting.text = "Customers waiting:\n"+customers.length;
 	this.updateChildren(d);
 	if (character.x == phone.x && phone.active){
-		//phoneQ.visible = true;
 		phone.active = false;
 		if (phone.ringing){
 			phoneQ.visible = true;
 			phoneRing.visible = false;
+			phone.arrived();
 		}
 	}
 	if(character.x == people.x && people.active){
-		deskQ.visible = true;
 		people.active = false;
 		console.log("I've arrived!");
+		if(customers.length > 0){
+			deskQ.visible = true;
+		}
 	}
-console.log(character.x, people.x);
 	if(character.x == robot.x && robot.active){
 		robot.active = false;
 		robot.arrived();
 	}
 	if (phone.ringing){
 		phoneRing.visible = true;
+	}
+	if(customers.length > 0){
+		people.visible = true;
+	}
+	else{
+		people.visible = false;
 	}
 };
 
