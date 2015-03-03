@@ -5,11 +5,24 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
-var phone, robot, computer, character, elevator, rooms, minibot, people, phoneQ, deskQ, phoneRing;
+//the different objects in the world
+var phone,
+    robot,
+    computer,
+    character,
+    elevator,
+    rooms,
+    minibot,
+    people,
+    phoneQ,
+    deskQ,
+    phoneRing;
+//a list of the customers waiting
 var customers = new List();
+//the text for how many customers are waiting
 var waiting = new TextBox();
-	waiting.x = 600;
-	waiting.y = 100;
+waiting.x = 600;
+waiting.y = 100;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -48,95 +61,96 @@ gInput.addMouseDownListener(manager);
 
 //Menu System
 function Screen(alwaysUpdate, alwaysDraw) {
-    //Call the Sprite constructor to copy any object properties
-    Sprite.call(this);
-    
-    //These determine if the screen should be update/drawn when it is not the top screen
-    this.alwaysUpdate = alwaysUpdate;
-    this.alwaysDraw = alwaysDraw;
-    
-    //Has the screen been initialized
-    this.initialized = false;
-    
-    //Create a stage for the screen that we can add sprites to
-    this.stage = new Sprite();
-    this.addChild(this.stage);
-    
-    //Create a gui object which extends sprite and supports buttons
-    this.gui = new GUI(gInput);
-    this.addChild(this.gui);
+	//Call the Sprite constructor to copy any object properties
+	Sprite.call(this);
+
+	//These determine if the screen should be update/drawn when it is not the top screen
+	this.alwaysUpdate = alwaysUpdate;
+	this.alwaysDraw = alwaysDraw;
+
+	//Has the screen been initialized
+	this.initialized = false;
+
+	//Create a stage for the screen that we can add sprites to
+	this.stage = new Sprite();
+	this.addChild(this.stage);
+
+	//Create a gui object which extends sprite and supports buttons
+	this.gui = new GUI(gInput);
+	this.addChild(this.gui);
 }
+
 //Inherit all Sprite properties
 Screen.prototype = new Sprite();
 
 //Called once to set up anything that needs to be called after the game is initialized
 //some values aren't available before initGame such as any canvas property
-Screen.prototype.init = function(){
+Screen.prototype.init = function() {
 };
 
 //Create a screen manager class
 function ScreenManager() {
-    //Call the Sprite constructor to copy any object properties
-    Sprite.call(this);
+	//Call the Sprite constructor to copy any object properties
+	Sprite.call(this);
 
-    this.screens = new List();
+	this.screens = new List();
 }
+
 //Inherit all Sprite properties
 ScreenManager.prototype = new Sprite();
 
 //Push a screen on to the stack
-ScreenManager.prototype.push = function(screen){
-    this.screens.remove(screen);
-    this.screens.push(screen);
+ScreenManager.prototype.push = function(screen) {
+	this.screens.remove(screen);
+	this.screens.push(screen);
 };
 
 //Pop a screen off of the stack
-ScreenManager.prototype.pop = function(){
-    this.screens.tail.item.gui.visible = false;
-    return this.screens.pop();
-}
-;
+ScreenManager.prototype.pop = function() {
+	this.screens.tail.item.gui.visible = false;
+	return this.screens.pop();
+};
 //Remove a screen from the stack
-ScreenManager.prototype.remove = function(screen){
-    screen.gui.visible = false;
-    this.screens.remove(screen);
+ScreenManager.prototype.remove = function(screen) {
+	screen.gui.visible = false;
+	this.screens.remove(screen);
 };
 
 //Override th defult update function
-ScreenManager.prototype.update = function (d) {
-    var screens = this.screens;
-    
-    //Loop through the screens and update if they are supposed to always update or if they ar the top screen
-    for (var node = screens.head; node != null; node = node.link) {
-        var screen = node.item;
-        
-        //The gui wasn't exactly made for this situation so we need to hide it if it's not in the current screen
-        if(node != screens.tail){
-            screen.gui.visible = false;
-        }else{
-            screen.gui.visible = true;
-        }
-        
-        if (screen.alwaysUpdate || node == screens.tail) {
-            if(!screen.initialized){
-                screen.init();
-                screen.initialized = true;
-            }
-            screen.update(d);
-        }
-    }
+ScreenManager.prototype.update = function(d) {
+	var screens = this.screens;
+
+	//Loop through the screens and update if they are supposed to always update or if they ar the top screen
+	for (var node = screens.head; node != null; node = node.link) {
+		var screen = node.item;
+
+		//The gui wasn't exactly made for this situation so we need to hide it if it's not in the current screen
+		if (node != screens.tail) {
+			screen.gui.visible = false;
+		} else {
+			screen.gui.visible = true;
+		}
+
+		if (screen.alwaysUpdate || node == screens.tail) {
+			if (!screen.initialized) {
+				screen.init();
+				screen.initialized = true;
+			}
+			screen.update(d);
+		}
+	}
 };
 
 //Override the defualt draw function the same as the update function except we're drawing
-ScreenManager.prototype.draw = function (ctx) {
-    var screens = this.screens;
-    
-    for (var node = screens.head; node != null; node = node.link) {
-        var screen = node.item;
-        if (screen.alwaysDraw || node == screens.tail) {
-            screen.draw(ctx);
-        }
-    }
+ScreenManager.prototype.draw = function(ctx) {
+	var screens = this.screens;
+
+	for (var node = screens.head; node != null; node = node.link) {
+		var screen = node.item;
+		if (screen.alwaysDraw || node == screens.tail) {
+			screen.draw(ctx);
+		}
+	}
 };
 
 //Create a new screen manager
@@ -152,26 +166,27 @@ mainMenu.image = Textures.load("TitleImg.png");
 screenMan.push(mainMenu);
 
 //Override the empty init function to set some properties
-mainMenu.init = function(){
-    //Since we set a background we want the screen to fill  the canvas
-    this.width = canvas.width;
-    this.height = canvas.height;
-    
-    this.gui.x = canvas.width/2;
-    this.gui.y = canvas.height/2;
-    
-    //Add some buttons
-    var newGame = new TextButton("New Game");
-    newGame.center = true;
-    newGame.label.dropShadow = true;
-    newGame.label.fontSize = 30;
-    newGame.setLabelColors("#000000", "#ffffff", "#ff0000");
-    this.gui.addChild(newGame);
-    
-    newGame.func = function(){
-        screenMan.push(gameScreen);
-    };
-    
+mainMenu.init = function() {
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
+
+	this.gui.x = canvas.width / 2;
+	this.gui.y = canvas.height / 2;
+
+	//Add some buttons
+	var newGame = new TextButton("New Game");
+	newGame.center = true;
+	newGame.label.dropShadow = true;
+	newGame.label.fontSize = 30;
+	newGame.setLabelColors("#000000", "#ffffff", "#ff0000");
+	this.gui.addChild(newGame);
+
+	newGame.func = function() {
+		screenMan.push(gameScreen);
+		gameScreen.newLevel(1);
+	};
+
 };
 
 var gameScreen = new Screen(true, true);
@@ -179,12 +194,12 @@ var gameScreen = new Screen(true, true);
 gameScreen.image = Textures.load("background.png");
 
 //Override the empty init function to set some properties
-gameScreen.init = function(){
-    //Since we set a background we want the screen to fill  the canvas
-    this.width = canvas.width;
-    this.height = canvas.height;
-    
-    //is the character busy?
+gameScreen.init = function() {
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
+
+	//is the character busy?
 	busy = false;
 
 	//call load functions for all objects
@@ -204,12 +219,12 @@ gameScreen.init = function(){
 	deskQ = loadDeskQ();
 	this.stage.addChild(deskQ);
 	this.stage.addChild(waiting);
-	
+
 	rooms = loadRooms();
-	for(var i = 0; i < rooms.length; i++){
+	for (var i = 0; i < rooms.length; i++) {
 		this.stage.addChild(rooms[i]);
 	}
-	
+
 	elevator = loadElevator();
 	this.stage.addChild(elevator);
 	minibot = loadMinibot();
@@ -226,76 +241,104 @@ gameScreen.init = function(){
 	sprites.push(phoneQ);
 };
 
-var pauseMenu = new Screen(false, true);
-//Override the empty init function to set some properties
-pauseMenu.init = function(){
-    //Since we set a background we want the screen to fill  the canvas
-    this.width = canvas.width;
-    this.height = canvas.height;
-    
-    this.gui.x = canvas.width/2;
-    this.gui.y = canvas.height/2;
-    
-    var resumeGame = new TextButton("Resume Game");
-    resumeGame.center = true;
-    resumeGame.label.dropShadow = true;
-    resumeGame.label.fontSize = 30;
-    resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-    this.gui.addChild(resumeGame);
-    resumeGame.func = function(){
-        screenMan.remove(pauseMenu);
-    };
-    
-    var returnToMenu = new TextButton("Main Menu");
-    returnToMenu.y = 50;
-    returnToMenu.center = true;
-    returnToMenu.label.dropShadow = true;
-    returnToMenu.label.fontSize = 30;
-    returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-    this.gui.addChild(returnToMenu);
-    returnToMenu.func = function(){
-        screenMan.remove(pauseMenu);
-        screenMan.remove(gameScreen);
-    };
+//essentially restarts the game with a new level.
+gameScreen.newLevel = function(level) {
+	//empty the customers list
+	while (customers.length > 0) {
+		customers.pop();
+	}
+	phone.newLevel(level);
+	robot.newLevel(level);
+	phoneRing.visible = false;
+	people.newLevel(level);
+	character.newLevel(level);
 };
 
-gInput.addFunc(27, function(){
-    if(screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)){
-        screenMan.push(pauseMenu);
-    }
+var pauseMenu = new Screen(false, true);
+//Override the empty init function to set some properties
+pauseMenu.init = function() {
+
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
+
+	this.gui.x = canvas.width / 2;
+	this.gui.y = canvas.height / 2;
+
+	var resumeGame = new TextButton("Resume Game");
+	resumeGame.center = true;
+	resumeGame.label.dropShadow = true;
+	resumeGame.label.fontSize = 30;
+	resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+	this.gui.addChild(resumeGame);
+	resumeGame.func = function() {
+		screenMan.remove(pauseMenu);
+		//resume game things
+		phone.pauseTime = false;
+		people.pauseTime = false;
+		character.paused = false;
+	};
+
+	var returnToMenu = new TextButton("Main Menu");
+	returnToMenu.y = 50;
+	returnToMenu.center = true;
+	returnToMenu.label.dropShadow = true;
+	returnToMenu.label.fontSize = 30;
+	returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+	this.gui.addChild(returnToMenu);
+	returnToMenu.func = function() {
+		screenMan.remove(pauseMenu);
+		screenMan.remove(gameScreen);
+	};
+};
+
+pauseMenu.update = function(d) {
+	//pause things in the main game
+	character.paused = true;
+	phone.pauseTime = true;
+	people.pauseTime = true;
+};
+
+gInput.addFunc(27, function() {
+	if (screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)) {
+		screenMan.push(pauseMenu);
+	}
 });
 
-
-
-gameScreen.update = function(d){	
-	waiting.text = "Customers waiting:\n"+customers.length;
+gameScreen.update = function(d) {
+	waiting.text = "Customers waiting:\n" + customers.length;
 	this.updateChildren(d);
-	if (character.x == phone.x && phone.active){
+	if (character.x == phone.x && phone.active) {
 		phone.active = false;
-		if (phone.ringing){
+		if (phone.ringing) {
 			phoneQ.visible = true;
 			phoneRing.visible = false;
 			phone.arrived();
 		}
 	}
-	if(character.x == people.x && people.active){
+	if(character.x != phone.x && phoneQ.visible){
+		phoneQ.visible = false;
+	}
+	if (character.x == people.x && people.active) {
 		people.active = false;
 		console.log("I've arrived!");
-		if(customers.length > 0){
+		if (customers.length > 0) {
 			deskQ.visible = true;
 		}
 	}
-	if(character.x == robot.x && robot.active){
+	if(character.x != people.x && deskQ.visible){
+		deskQ.visible = false;
+	}
+	if (character.x == robot.x && robot.active) {
 		robot.active = false;
 		robot.arrived();
 	}
-	if (phone.ringing){
+	if (phone.ringing) {
 		phoneRing.visible = true;
 	}
-	if(customers.length > 0){
+	if (customers.length > 0) {
 		people.visible = true;
-	}
-	else{
+	} else {
 		people.visible = false;
 	}
 };
