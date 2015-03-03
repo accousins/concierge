@@ -11,6 +11,7 @@ function loadDeskQ() {
 		var dy = gInput.mouse.y - this.y;
 		if (dy >= 75 && dy <= 99) {
 			console.log("you picked A");
+			lives.val++;
 			deskQ.visible = false;
 			customers.pop();
 		}

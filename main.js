@@ -10,6 +10,11 @@ var customers = new List();
 var waiting = new TextBox();
 	waiting.x = 600;
 	waiting.y = 100;
+	
+var lives = new TextBox();
+	lives.x = 200;
+	lives.y = 10;
+	lives.val = 5;	
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -204,6 +209,7 @@ gameScreen.init = function(){
 	deskQ = loadDeskQ();
 	this.stage.addChild(deskQ);
 	this.stage.addChild(waiting);
+	this.stage.addChild(lives);
 	
 	rooms = loadRooms();
 	for(var i = 0; i < rooms.length; i++){
@@ -269,6 +275,12 @@ gInput.addFunc(27, function(){
 
 gameScreen.update = function(d){	
 	waiting.text = "Customers waiting:\n"+customers.length;
+	
+	if(lives.val > 5){
+		lives.val = 5;
+	}
+	lives.text = "Stars: " + lives.val;
+	
 	this.updateChildren(d);
 	if (character.x == phone.x && phone.active){
 		phone.active = false;
