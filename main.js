@@ -6,7 +6,7 @@ clearColor = [0, 0, 0, 0];
 var sprites = new Array();
 var busy;
 //time
-var time = 3;
+var time = 20;
 var timePause = false;
 var currLevel = 1;
 //the different objects in the world
@@ -266,7 +266,7 @@ gameScreen.newLevel = function(level) {
 	phoneRing.visible = false;
 	people.newLevel(level);
 	character.newLevel(level);
-	time = 3;
+	time = 20;
 	timePause = false;
 };
 
