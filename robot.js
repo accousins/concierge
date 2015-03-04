@@ -1,8 +1,8 @@
 //this class will handle the robot object
+
 function loadRobot() {
 	var robot = new Sprite();
 	robot.command;
-	robot.moving = false;
 	robot.x = 15;
 	robot.y = 500;
 	robot.homeX = 15;
@@ -75,5 +75,15 @@ function loadRobot() {
 		}
 		//console.log(robot.moving, robot.x, robot.y);
 	};
+	
+	//sets the robot to a start state for the new level
+	robot.newLevel = function(level){
+		robot.x = 15;
+		robot.y = 500;
+		robot.busy = false;
+		robot.moving = false;
+		robot.active = false;
+	};
+	
 	return robot;
 }
