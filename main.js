@@ -401,6 +401,7 @@ mainMenu.init = function() {
 			people.active = false;
 			console.log("I've arrived!");
 			if (customers.length > 0) {
+				deskQ.pickQuestion();
 				deskQ.visible = true;
 			}
 		}
