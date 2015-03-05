@@ -12,6 +12,9 @@ function loadPeople() {
 	people.time = 3 + Math.floor(Math.random() * 5);
 	people.pauseTime = false;
 	people.timeInterval = 10;
+	
+	people.happy = 3;
+	people.alarm = false;
 
 	people.update = function(d) {
 		if (!people.pauseTime) {
@@ -20,7 +23,6 @@ function loadPeople() {
 				var newCust = loadPeople();
 				customers.push(newCust);
 				people.time = 5 + Math.floor(Math.random() * people.timeInterval);
-
 			}
 		}
 	};
