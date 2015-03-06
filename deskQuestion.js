@@ -19,21 +19,21 @@ function loadDeskQ() {
 		var dy = gInput.mouse.y - this.y;
 		if (dy >= 75 && dy <= 99) {
 			console.log("you picked A");
-			lives.val += this.current.outcomes[0];
+			lives += this.current.outcomes[0];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
-			lives.val += this.current.outcomes[1];
+			lives += this.current.outcomes[1];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
-			lives.val += this.current.outcomes[2];
+			lives += this.current.outcomes[2];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();

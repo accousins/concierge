@@ -36,9 +36,8 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
-var lives = new TextBox();
-lives.x = 200;
-lives.y = 10;
+// lives/stars
+var lives = 5;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -201,7 +200,7 @@ mainMenu.init = function() {
 	newGame.func = function() {
 		screenMan.push(gameScreen);
 		gameScreen.newLevel(1);
-		lives.val = 5;
+		lives = 5;
 	};
 
 	var gameOver = new Screen(false, false);
@@ -268,9 +267,6 @@ mainMenu.init = function() {
 		sArray = loadSounds();
 		this.stage.addChild(sArray);
 
-		this.stage.addChild(lives);
-		lives.val = 5;
-
 		rooms = loadRooms();
 		for (var i = 0; i < rooms.length; i++) {
 			this.stage.addChild(rooms[i]);
@@ -282,6 +278,13 @@ mainMenu.init = function() {
 		this.stage.addChild(minibot);
 		people = loadPeople();
 		this.stage.addChild(people);
+		
+		// add stars
+		this.stage.addChild(star1);
+		this.stage.addChild(star2);
+		this.stage.addChild(star3);
+		this.stage.addChild(star4);
+		this.stage.addChild(star5);
 
 		//clickable things
 		sprites.push(phone);
@@ -383,13 +386,12 @@ mainMenu.init = function() {
 			screenMan.push(levelComplete);
 		}
 
-		if (lives.val > 5) {
-			lives.val = 5;
+		if (lives > 5) {
+			lives = 5;
 		}
-		if (lives.val <= 0) {
+		if (lives <= 0) {
 			screenMan.push(gameOver);
 		}
-		lives.text = "Stars: " + lives.val;
 
 		this.updateChildren(d);
 		if (character.x == phone.x && phone.active) {

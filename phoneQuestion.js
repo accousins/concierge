@@ -15,12 +15,12 @@ function loadPhoneQ() {
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
-			lives.val--;
+			lives--;
 			phoneQ.visible = false;
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
-			lives.val--;
+			lives--;
 			phoneQ.visible = false;
 		}
 	};
