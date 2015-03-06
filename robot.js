@@ -38,7 +38,6 @@ function loadRobot() {
 
 	//called when the character arrives at the robot
 	robot.arrived = function() {
-		sArray[1].play();
 		this.command = prompt("Which room number should I visit?", "");
 		this.moveTo(-70, 500);
 		robot.busy = true;
