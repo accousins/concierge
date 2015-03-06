@@ -7,11 +7,11 @@ function loadDeskQ() {
 	deskQ.answered = false;
 	deskQ.visible = false;
 
-	var questions = [{image: "SpeechBubbleMockup.png", outcomes: [1, 0, -5]}];
+	var questions = [{image: "deskQ1.png", outcomes: [-1, 0, -1]}, {image: "deskQ2.png", outcomes: [0, -1, -1]}];
 	deskQ.current;
 	
 	deskQ.pickQuestion = function(){
-		deskQ.current = questions[0];
+		deskQ.current = questions[Math.floor(Math.random() * 2)];
 		deskQ.image = Textures.load(this.current.image);
 	};
 	
