@@ -7,11 +7,11 @@ function loadDeskQ() {
 	deskQ.answered = false;
 	deskQ.visible = false;
 
-	var questions = [{image: "SpeechBubbleMockup.png", outcomes: [1, 0, -5]}];
+	var questions = [{image: "deskQ1.png", outcomes: [-1, 0, -1]}, {image: "deskQ2.png", outcomes: [0, -1, -1]}];
 	deskQ.current;
 	
 	deskQ.pickQuestion = function(){
-		deskQ.current = questions[0];
+		deskQ.current = questions[Math.floor(Math.random() * 2)];
 		deskQ.image = Textures.load(this.current.image);
 	};
 	
@@ -19,21 +19,21 @@ function loadDeskQ() {
 		var dy = gInput.mouse.y - this.y;
 		if (dy >= 75 && dy <= 99) {
 			console.log("you picked A");
-			lives.val += this.current.outcomes[0];
+			lives += this.current.outcomes[0];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
-			lives.val += this.current.outcomes[1];
+			lives += this.current.outcomes[1];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
-			lives.val += this.current.outcomes[2];
+			lives += this.current.outcomes[2];
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
