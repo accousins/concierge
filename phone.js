@@ -22,8 +22,8 @@ function loadPhone() {
 	phone.timeInterval = 10;
 	phone.pauseTime = false;
 
-	phone.happy = 3;
-	phone.alarm = false;
+	// phone.happy = 3;
+	// phone.alarm = false;
 
 	//used to count down until the phone rings
 	phone.update = function(d) {
@@ -35,17 +35,17 @@ function loadPhone() {
 					phone.alarm = true;
 					// console.log("the phone is ring");
 				}
-			} else {
+			} // else {
 				// if (phone.alarm) {
-				// phone.happy -= (d * MSPF) / 1000;
-				// if (phone.happy <= 0) {
-				// lives.val--;
-				// phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
-				// phone.ringing = false;
-				// phone.alarm = false;
+					// phone.happy -= (d * MSPF) / 1000;
+					// if (phone.happy <= 0) {
+						// lives.val--;
+						// phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
+						// phone.ringing = false;
+						// phone.alarm = false;
+					// }
 				// }
-				// }
-			}
+			// }
 		}
 	};
 
