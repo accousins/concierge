@@ -23,7 +23,7 @@ function loadPhone() {
 	phoneRing.frameHeight = 50;
 	phoneRing.frameCount = 21;
 	phoneRing.frameRate = 15;
-	phoneRing.moveRate = 25;
+	phoneRing.moveRate = 15;
 
 	phone.time = 3 + Math.floor(Math.random() * 5);
 	phone.timeInterval = 10;
