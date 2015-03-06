@@ -24,6 +24,8 @@ function loadPhone() {
 	phoneRing.frameCount = 21;
 	phoneRing.frameRate = 15;
 	phoneRing.moveRate = 15;
+	
+	phoneRing.animation = "ring";
 
 	phone.time = 3 + Math.floor(Math.random() * 5);
 	phone.timeInterval = 10;
@@ -38,11 +40,13 @@ function loadPhone() {
 		if (!phone.pauseTime) {
 			if (phone.ringing == false) {
 				phone.time -= (d * MSPF) / 1000;
+				phone.visible = true;
 				if (phone.time <= 0) {
 					phone.ringing = true;
 					sArray[0].play();
 					phone.visible = false;
 					this.frameRate = this.moveRate;
+					this.frameRate = 0;
 					phone.alarm = true;
 					// console.log("the phone is ring");
 				}
