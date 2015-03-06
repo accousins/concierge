@@ -36,6 +36,10 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
+var lives = new TextBox();
+lives.x = 200;
+lives.y = 10;
+
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
 manager.clicked = false;
@@ -197,6 +201,7 @@ mainMenu.init = function() {
 	newGame.func = function() {
 		screenMan.push(gameScreen);
 		gameScreen.newLevel(1);
+		lives.val = 5;
 	};
 
 };
@@ -280,92 +285,223 @@ pauseMenu.init = function() {
 	//Since we set a background we want the screen to fill  the canvas
 	this.width = canvas.width;
 	this.height = canvas.height;
+	var gameOver = new Screen(false, false);
+	gameOver.init = function() {
+		this.width = canvas.width;
+		this.height = canvas.height;
 
-	this.gui.x = canvas.width / 2;
-	this.gui.y = canvas.height / 2;
+		var gameOverScreen = new Sprite();
+		gameOverScreen.width = 600;
+		gameOverScreen.height = 400;
+		gameOverScreen.x = 100;
+		gameOverScreen.y = 100;
+		gameOverScreen.image = Textures.load("gameover.png");
+		this.stage.addChild(gameOverScreen);
 
-	var resumeGame = new TextButton("Resume Game");
-	resumeGame.center = true;
-	resumeGame.label.dropShadow = true;
-	resumeGame.label.fontSize = 30;
-	resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-	this.gui.addChild(resumeGame);
-	resumeGame.func = function() {
-		screenMan.remove(pauseMenu);
+		this.gui.x = canvas.width / 2;
+		this.gui.y = canvas.height / 2;
+
+		var returnToMenu = new TextButton("Main Menu");
+		returnToMenu.y = 50;
+		returnToMenu.center = true;
+		returnToMenu.label.dropShadow = true;
+		returnToMenu.label.fontSize = 30;
+		returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(returnToMenu);
+		returnToMenu.func = function() {
+			screenMan.remove(gameOver);
+			screenMan.remove(gameScreen);
+		};
 	};
 
-	var returnToMenu = new TextButton("Main Menu");
-	returnToMenu.y = 50;
-	returnToMenu.center = true;
-	returnToMenu.label.dropShadow = true;
-	returnToMenu.label.fontSize = 30;
-	returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-	this.gui.addChild(returnToMenu);
-	returnToMenu.func = function() {
-		screenMan.remove(pauseMenu);
-		screenMan.remove(gameScreen);
-		resumeGame();
-	};
-};
+	var gameScreen = new Screen(true, true);
+	//Game Background here:
+	gameScreen.image = Textures.load("background.png");
 
-var levelComplete = new Screen(false, true);
-levelComplete.init = function() {
+	//Override the empty init function to set some properties
+	gameScreen.init = function() {
+		//Since we set a background we want the screen to fill  the canvas
+		this.width = canvas.width;
+		this.height = canvas.height;
 
-	//Since we set a background we want the screen to fill  the canvas
-	this.width = canvas.width;
-	this.height = canvas.height;
+		//is the character busy?
+		busy = false;
 
-	this.gui.x = canvas.width / 2;
-	this.gui.y = canvas.height / 2;
+		//call load functions for all objects
+		var phones = loadPhone();
+		phone = phones[0];
+		phoneRing = phones[1];
+		this.stage.addChild(phone);
+		this.stage.addChild(phoneRing);
+		phoneQ = loadPhoneQ();
+		this.stage.addChild(phoneQ);
+		robot = loadRobot();
+		this.stage.addChild(robot);
+		computer = loadComputer();
+		this.stage.addChild(computer);
+		character = loadCharacter();
+		this.stage.addChild(character);
+		deskQ = loadDeskQ();
+		this.stage.addChild(deskQ);
+		//text boxes
+		this.stage.addChild(waiting);
+		this.stage.addChild(timeText);
 
-	var nextLevel = new TextButton("Next Level");
-	nextLevel.center = true;
-	nextLevel.label.dropShadow = true;
-	nextLevel.label.fontSize = 30;
-	nextLevel.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-	this.gui.addChild(nextLevel);
-	nextLevel.func = function() {
-		screenMan.remove(levelComplete);
-		gameScreen.newLevel(currLevel + 1);
-	};
+		this.stage.addChild(lives);
+		lives.val = 5;
 
-};
-
-gInput.addFunc(27, function() {
-	if (screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)) {
-		screenMan.push(pauseMenu);
-		pauseGame();
-	}
-});
-
-gameScreen.update = function(d) {
-	waiting.text = "Customers waiting:\n" + customers.length;
-	if (!timePause) {
-		time -= (d * MSPF) / 1000;
-	}
-	timeText.text = "Time: " + Math.round(time);
-	if (time <= 0) {
-		pauseGame();
-		screenMan.push(levelComplete);
-	}
-	this.updateChildren(d);
-	if (character.x == phone.x && phone.active) {
-		phone.active = false;
-		if (phone.ringing) {
-			phoneQ.visible = true;
-			phoneRing.visible = false;
-			phone.arrived();
+		rooms = loadRooms();
+		for (var i = 0; i < rooms.length; i++) {
+			this.stage.addChild(rooms[i]);
 		}
-	}
-	if (character.x == people.x && people.active) {
-		people.active = false;
-		console.log("I've arrived!");
+
+		elevator = loadElevator();
+		this.stage.addChild(elevator);
+		minibot = loadMinibot();
+		this.stage.addChild(minibot);
+		people = loadPeople();
+		this.stage.addChild(people);
+
+		//clickable things
+		sprites.push(phone);
+		sprites.push(robot);
+		sprites.push(computer);
+		sprites.push(people);
+		sprites.push(deskQ);
+		sprites.push(phoneQ);
+	};
+
+	//essentially restarts the game with a new level.
+	gameScreen.newLevel = function(level) {
+		currLevel = level;
+		//empty the customers list
+		while (customers.length > 0) {
+			customers.pop();
+		}
+		phone.newLevel(level);
+		robot.newLevel(level);
+		phoneRing.visible = false;
+		people.newLevel(level);
+		character.newLevel(level);
+		time = 20;
+		timePause = false;
+	};
+
+	var pauseMenu = new Screen(false, true);
+	//Override the empty init function to set some properties
+	pauseMenu.init = function() {
+
+		//Since we set a background we want the screen to fill  the canvas
+		this.width = canvas.width;
+		this.height = canvas.height;
+
+		this.gui.x = canvas.width / 2;
+		this.gui.y = canvas.height / 2;
+
+		var resumeGame = new TextButton("Resume Game");
+		resumeGame.center = true;
+		resumeGame.label.dropShadow = true;
+		resumeGame.label.fontSize = 30;
+		resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(resumeGame);
+		resumeGame.func = function() {
+			screenMan.remove(pauseMenu);
+		};
+
+		var returnToMenu = new TextButton("Main Menu");
+		returnToMenu.y = 50;
+		returnToMenu.center = true;
+		returnToMenu.label.dropShadow = true;
+		returnToMenu.label.fontSize = 30;
+		returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(returnToMenu);
+		returnToMenu.func = function() {
+			screenMan.remove(pauseMenu);
+			screenMan.remove(gameScreen);
+			resumeGame();
+		};
+	};
+
+	var levelComplete = new Screen(false, true);
+	levelComplete.init = function() {
+
+		//Since we set a background we want the screen to fill  the canvas
+		this.width = canvas.width;
+		this.height = canvas.height;
+
+		this.gui.x = canvas.width / 2;
+		this.gui.y = canvas.height / 2;
+
+		var nextLevel = new TextButton("Next Level");
+		nextLevel.center = true;
+		nextLevel.label.dropShadow = true;
+		nextLevel.label.fontSize = 30;
+		nextLevel.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(nextLevel);
+		nextLevel.func = function() {
+			screenMan.remove(levelComplete);
+			gameScreen.newLevel(currLevel + 1);
+		};
+	};
+
+	gInput.addFunc(27, function() {
+		if (screenMan.screens.find(gameScreen) && !screenMan.screens.find(pauseMenu)) {
+			screenMan.push(pauseMenu);
+			pauseGame();
+		}
+	});
+
+	gameScreen.update = function(d) {
+		waiting.text = "Customers waiting:\n" + customers.length;
+		if (!timePause) {
+			time -= (d * MSPF) / 1000;
+		}
+		timeText.text = "Time: " + Math.round(time);
+		if (time <= 0) {
+			pauseGame();
+			screenMan.push(levelComplete);
+		}
+
+		if (lives.val > 5) {
+			lives.val = 5;
+		}
+		if (lives.val <= 0) {
+			screenMan.push(gameOver);
+		}
+		lives.text = "Stars: " + lives.val;
+
+		this.updateChildren(d);
+		if (character.x == phone.x && phone.active) {
+			phone.active = false;
+			if (phone.ringing) {
+				phoneQ.visible = true;
+				phoneRing.visible = false;
+				phone.arrived();
+			}
+		}
+		if (character.x == people.x && people.active) {
+			people.active = false;
+			console.log("I've arrived!");
+			if (customers.length > 0) {
+				deskQ.pickQuestion();
+				deskQ.visible = true;
+			}
+		}
+		if (character.x != people.x && deskQ.visible) {
+			deskQ.visible = false;
+		}
+		if (character.x == robot.x && robot.active) {
+			robot.active = false;
+			robot.arrived();
+		}
+		if (phone.ringing) {
+			phoneRing.visible = true;
+		}
 		if (customers.length > 0) {
 			deskQ.visible = true;
 			currSpeech = sArray[2][Math.round(Math.random())];
 			currSpeech.play();
-		}
-	}
+		}	
 	if(deskQ.answered == true){
 		currSpeech.pause();
 		currSpeech.currentTime = 0;
@@ -388,17 +524,18 @@ gameScreen.update = function(d) {
 	}
 };
 
-pauseGame = function() {
-	//pause things in the main game
-	character.paused = true;
-	phone.pauseTime = true;
-	people.pauseTime = true;
-	timePause = true;
-};
-resumeGame = function() {
-	//resume game things
-	phone.pauseTime = false;
-	people.pauseTime = false;
-	character.paused = false;
-	timePause = false;
+	pauseGame = function() {
+		//pause things in the main game
+		character.paused = true;
+		phone.pauseTime = true;
+		people.pauseTime = true;
+		timePause = true;
+	};
+	resumeGame = function() {
+		//resume game things
+		phone.pauseTime = false;
+		people.pauseTime = false;
+		character.paused = false;
+		timePause = false;
+	};
 };

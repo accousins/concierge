@@ -29,6 +29,9 @@ function loadPhone() {
 	phone.timeInterval = 10;
 	phone.pauseTime = false;
 
+	// phone.happy = 3;
+	// phone.alarm = false;
+
 	//used to count down until the phone rings
 	phone.update = function(d) {
 		/*if (phone.ringing == false) {
@@ -42,14 +45,24 @@ function loadPhone() {
 			if (phone.ringing == false) {
 				phone.time -= (d * MSPF) / 1000;
 				if (phone.time <= 0) {
-					//sArray[0].play();
+					sArray[0].play();
 					phone.ringing = true;
 					phone.visible = false;
 					this.frameRate = this.moveRate;
-					
-					//console.log("the phone is ring");
+					phone.alarm = true;
+					// console.log("the phone is ring");
 				}
-			}
+			} // else {
+				// if (phone.alarm) {
+					// phone.happy -= (d * MSPF) / 1000;
+					// if (phone.happy <= 0) {
+						// lives.val--;
+						// phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
+						// phone.ringing = false;
+						// phone.alarm = false;
+					// }
+				// }
+			// }
 		}
 	};
 
@@ -58,8 +71,9 @@ function loadPhone() {
 		//Time between phone calls
 		phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
 		phone.ringing = false;
-		//sArray[0].pause();
-		//sArray[0].currentTime = 0;
+		sArray[0].pause();
+		sArray[0].currentTime = 0;
+		phone.alarm = false;
 	};
 
 	//What do when clicked on
@@ -67,9 +81,9 @@ function loadPhone() {
 		character.moveTo(this.x, this.y);
 		phone.active = true;
 	};
-	
+
 	//set the phone to the start state of the new level
-	phone.newLevel = function(level){
+	phone.newLevel = function(level) {
 		phone.time = 3 + Math.floor(Math.random() * 5);
 		phone.timeInterval = 10 - (2 * level);
 		phone.ringing = false;
