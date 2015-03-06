@@ -6,7 +6,7 @@ function loadPeople() {
 	people.width = 100;
 	people.height = 100;
 	people.space = people.height + 40;
-	people.image = Textures.load("Pre-customers.png");
+	people.image = Textures.load("customers.png");
 	people.visible = false;
 	people.active = false;
 	people.time = 3 + Math.floor(Math.random() * 5);
