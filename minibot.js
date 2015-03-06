@@ -9,6 +9,7 @@ function loadMinibot() {
 	minibot.floor = 0;
 	minibot.room = 0;
 	minibot.moveSpeed = 3;
+	minibot.correctDelivery = false;
 
 	minibot.move = function(room) {
 
@@ -19,6 +20,11 @@ function loadMinibot() {
 		this.x = 226;
 		this.y = 515 - (95 * this.floor);
 		this.visible = true;
+		//check if delivering to the right room
+		if (deliveries.find(room)) {
+			this.correctDelivery = true;
+			deliveries.remove(room);
+		}
 
 	};
 
@@ -55,7 +61,10 @@ function loadMinibot() {
 				this.floor = 0;
 				this.moveSpeed = -1 * this.moveSpeed;
 				this.visible = false;
-				lives.val++;
+				if (this.correctDelivery) {
+					lives.val++;
+					this.correctDelivery = false;
+				}
 			}
 		}
 	};

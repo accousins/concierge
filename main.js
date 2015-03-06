@@ -36,6 +36,16 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
+//the room to deliver to
+var roomText = new TextBox();
+roomText.x = 150;
+roomText.y = 300;
+roomText.fontSize = 16;
+roomText.visible = false;
+
+//rooms to deliver to
+var deliveries = new List();
+
 var lives = new TextBox();
 lives.x = 200;
 lives.y = 10;
@@ -269,6 +279,7 @@ mainMenu.init = function() {
 		this.stage.addChild(lives);
 		lives.val = 5;
 
+		this.stage.addChild(roomText);
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
 			// this.stage.addChild(rooms[i]);
@@ -301,6 +312,10 @@ mainMenu.init = function() {
 		//empty the customers list
 		while (customers.length > 0) {
 			customers.pop();
+		}
+		//clear current deliveries
+		while(deliveries.length > 0){
+			deliveries.pop();
 		}
 		phone.newLevel(level);
 		robot.newLevel(level);
@@ -400,6 +415,14 @@ mainMenu.init = function() {
 			if (phone.ringing) {
 				phoneQ.visible = true;
 				phoneRing.visible = false;
+				//Pick a room number
+				var roomNum = Math.floor(Math.random() * 4) + 1;
+				roomNum += 100 * (1 + Math.floor(Math.random() * 3));
+				roomText.text = roomNum;
+				roomText.visible = true;
+				//add it to the list of rooms needing a delivery
+				deliveries.push(roomNum);
+				
 				phone.arrived();
 			}
 		}
