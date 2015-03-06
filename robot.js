@@ -2,7 +2,7 @@
 
 function loadRobot() {
 	var robot = new Sprite();
-	robot.command;
+	robot.command = 0;
 	robot.x = 15;
 	robot.y = 500;
 	robot.homeX = 15;
@@ -11,14 +11,14 @@ function loadRobot() {
 	robot.height = 100;
 	robot.busy = false;
 	robot.image = Textures.load("Actual_robot.png");
-	
-	robot.frameWidth = 50;
-	robot.frameHeight = 100;
-	robot.frameCount = 21;
-	robot.frameRate = 15;
-	robot.moveRate = 15;
-	
-	robot.addAnimations(["left", "right"], [3, 3]);
+
+	// robot.frameWidth = 50;
+	// robot.frameHeight = 100;
+	// robot.frameCount = 21;
+	// robot.frameRate = 15;
+	// robot.moveRate = 15;
+
+	//robot.addAnimations(["left", "right"], [3, 3]);
 
 	robot.speed = 0.05;
 	robot.destX = robot.x;
@@ -39,8 +39,19 @@ function loadRobot() {
 	//called when the character arrives at the robot
 	robot.arrived = function() {
 		this.command = prompt("Which room number should I visit?", "");
-		this.moveTo(-70, 500);
-		robot.busy = true;
+		//check if its a valid room
+		//if ( typeof this.command == 'number' && Math.floor(this.command) == this.command) {
+			if (this.command > 100 && this.command < 305) {
+				if ((this.command % 100) > 0 && (this.command % 100) < 5) {
+					minibot.move(this.command);
+					this.moveTo(-70, 500);
+					robot.busy = true;
+				}
+			}
+		//}
+		if(robot.busy != true){
+			console.log("thats not a room");
+		}
 	};
 
 	robot.moveTo = function(x, y) {
@@ -48,8 +59,8 @@ function loadRobot() {
 			if (this.x != x || this.y != y) {
 				this.destX = x;
 				this.destY = y;
-				this.animation = "left";
-				this.frameRate = this.moveRate;
+				//this.animation = "left";
+				//this.frameRate = this.moveRate;
 				this.moving = true;
 				this.busy = true;
 			}
@@ -70,22 +81,24 @@ function loadRobot() {
 
 	robot.goHome = function() {
 		if (this.x == this.destX && this.y == this.destY && this.busy == false) {
-			this.animation = "right";
-			this.frameRate = this.moveRate;
+			//this.animation = "right";
+			//this.frameRate = this.moveRate;
 			this.moveTo(robot.homeX, robot.homeY);
 		}
 	};
 
 	robot.update = function(d) {
-		this.frameRate = 0;
-		if (this.moving == true) {
+		//this.frameRate = 0;
+		if (this.busy == true) {
 			robot.calcMove();
 			this.x += this.xTravel;
 			this.y += this.yTravel;
 			if (this.x == this.destX && this.y == this.destY) {
 				this.moving = false;
-				this.busy = false;
-				robot.goHome();
+				if (minibot.floor == 0) {
+					this.busy = false;
+					robot.goHome();
+				}
 			}
 		}
 		//console.log(robot.moving, robot.x, robot.y);
@@ -93,7 +106,7 @@ function loadRobot() {
 
 	//sets the robot to a start state for the new level
 	robot.newLevel = function(level) {
-		robot.frameRate = 0;
+		//robot.frameRate = 0;
 		robot.x = 15;
 		robot.y = 500;
 		robot.busy = false;

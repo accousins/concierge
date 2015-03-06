@@ -36,8 +36,20 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
+
 // lives/stars
 var lives = 5;
+
+//the room to deliver to
+var roomText = new TextBox();
+roomText.x = 150;
+roomText.y = 300;
+roomText.fontSize = 16;
+roomText.visible = false;
+
+//rooms to deliver to
+var deliveries = new List();
+
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -257,8 +269,6 @@ mainMenu.init = function() {
 		this.stage.addChild(robot);
 		computer = loadComputer();
 		this.stage.addChild(computer);
-		character = loadCharacter();
-		this.stage.addChild(character);
 		deskQ = loadDeskQ();
 		this.stage.addChild(deskQ);
 		//text boxes
@@ -267,24 +277,35 @@ mainMenu.init = function() {
 		sArray = loadSounds();
 		this.stage.addChild(sArray);
 
-		rooms = loadRooms();
-		for (var i = 0; i < rooms.length; i++) {
-			this.stage.addChild(rooms[i]);
-		}
 
-		elevator = loadElevator();
-		this.stage.addChild(elevator);
+
+		this.stage.addChild(roomText);
+		// rooms = loadRooms();
+		// for (var i = 0; i < rooms.length; i++) {
+			// this.stage.addChild(rooms[i]);
+		// }
+
+		rooms = loadRooms();
+		this.stage.addChild(rooms);
+
+		// elevator = loadElevator();
+		// this.stage.addChild(elevator);
 		minibot = loadMinibot();
 		this.stage.addChild(minibot);
 		people = loadPeople();
 		this.stage.addChild(people);
 		
+
 		// add stars
 		this.stage.addChild(star1);
 		this.stage.addChild(star2);
 		this.stage.addChild(star3);
 		this.stage.addChild(star4);
 		this.stage.addChild(star5);
+
+		character = loadCharacter();
+		this.stage.addChild(character);
+
 
 		//clickable things
 		sprites.push(phone);
@@ -301,6 +322,10 @@ mainMenu.init = function() {
 		//empty the customers list
 		while (customers.length > 0) {
 			customers.pop();
+		}
+		//clear current deliveries
+		while(deliveries.length > 0){
+			deliveries.pop();
 		}
 		phone.newLevel(level);
 		robot.newLevel(level);
@@ -399,6 +424,14 @@ mainMenu.init = function() {
 			if (phone.ringing) {
 				phoneQ.visible = true;
 				phoneRing.visible = false;
+				//Pick a room number
+				var roomNum = Math.floor(Math.random() * 4) + 1;
+				roomNum += 100 * (1 + Math.floor(Math.random() * 3));
+				roomText.text = roomNum;
+				roomText.visible = true;
+				//add it to the list of rooms needing a delivery
+				deliveries.push(roomNum);
+				
 				phone.arrived();
 			}
 		}
