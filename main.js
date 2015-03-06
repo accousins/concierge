@@ -20,7 +20,8 @@ var phone,
     people,
     phoneQ,
     deskQ,
-    phoneRing;
+    phoneRing,
+    currSpeech;
 //a list of the customers waiting
 var customers = new List();
 //the text for how many customers are waiting
@@ -264,6 +265,8 @@ mainMenu.init = function() {
 		//text boxes
 		this.stage.addChild(waiting);
 		this.stage.addChild(timeText);
+		sArray = loadSounds();
+		this.stage.addChild(sArray);
 
 		this.stage.addChild(lives);
 		lives.val = 5;
@@ -403,10 +406,17 @@ mainMenu.init = function() {
 			if (customers.length > 0) {
 				deskQ.pickQuestion();
 				deskQ.visible = true;
+				currSpeech = sArray[2][Math.round(Math.random())];
+				currSpeech.play();
 			}
 		}
 		if (character.x != people.x && deskQ.visible) {
 			deskQ.visible = false;
+		}
+		if (deskQ.answered == true){
+			currSpeech.pause();
+			currSpeech.currentTime = 0;
+			deskQ.answered = false;
 		}
 		if (character.x == robot.x && robot.active) {
 			robot.active = false;

@@ -40,6 +40,7 @@ function loadPhone() {
 				phone.time -= (d * MSPF) / 1000;
 				if (phone.time <= 0) {
 					phone.ringing = true;
+					sArray[0].play();
 					phone.visible = false;
 					this.frameRate = this.moveRate;
 					phone.alarm = true;
@@ -63,6 +64,8 @@ function loadPhone() {
 	phone.arrived = function() {
 		//Time between phone calls
 		phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
+		sArray[0].pause();
+		sArray[0].currentTime = 0;
 		phone.ringing = false;
 		phone.alarm = false;
 	};
