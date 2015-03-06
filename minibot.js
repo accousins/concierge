@@ -65,6 +65,9 @@ function loadMinibot() {
 					lives.val++;
 					this.correctDelivery = false;
 				}
+				else {
+					lives.val--;
+				}
 			}
 		}
 	};
