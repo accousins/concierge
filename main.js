@@ -502,25 +502,25 @@ pauseMenu.init = function() {
 			currSpeech = sArray[2][Math.round(Math.random())];
 			currSpeech.play();
 		}	
-	if(deskQ.answered == true){
-		currSpeech.pause();
-		currSpeech.currentTime = 0;
-		deskQ.answered = false;
-	}
-	if (character.x != people.x && deskQ.visible) {
-		deskQ.visible = false;
-	}
-	if (character.x == robot.x && robot.active) {
-		robot.active = false;
-		robot.arrived();
-	}
-	if (phone.ringing) {
-		phoneRing.visible = true;
-	}
-	if (customers.length > 0) {
-		people.visible = true;
-	} else {
-		people.visible = false;
+		if(deskQ.answered == true){
+			currSpeech.pause();
+			currSpeech.currentTime = 0;
+			deskQ.answered = false;
+		}
+		if (character.x != people.x && deskQ.visible) {
+			deskQ.visible = false;
+		}
+		if (character.x == robot.x && robot.active) {
+			robot.active = false;
+			robot.arrived();
+		}
+		if (phone.ringing) {
+			phoneRing.visible = true;
+		}
+		if (customers.length > 0) {
+			people.visible = true;
+		} else {
+			people.visible = false;
 	}
 };
 
