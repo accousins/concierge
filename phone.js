@@ -3,20 +3,27 @@ function loadPhone() {
 	var phone = new Sprite();
 	phone.x = 100;
 	phone.y = 500;
-	phone.width = 25;
-	phone.height = 25;
-	phone.image = Textures.load("phone.png");
+	phone.width = 70;
+	phone.height = 50;
+	phone.image = Textures.load("Actual_Phone.png");
 	phone.active = false;
 	phone.ringing = false;
+	phone.visible = true;
 	var act = 0;
 
 	var phoneRing = new Sprite();
 	phoneRing.x = 100;
-	phoneRing.y = 450;
-	phoneRing.width = 25;
-	phoneRing.height = 25;
-	phoneRing.image = Textures.load("ringing_phone.png");
+	phoneRing.y = 500;
+	phoneRing.width = 70;
+	phoneRing.height = 50;
+	phoneRing.image = Textures.load("phone_ring_ani.png");
+	phoneRing.addAnimations(["ring"],[5]);
 	phoneRing.visible = false;
+	phoneRing.frameWidth = 70;
+	phoneRing.frameHeight = 50;
+	phoneRing.frameCount = 21;
+	phoneRing.frameRate = 15;
+	phoneRing.moveRate = 15;
 
 	phone.time = 3 + Math.floor(Math.random() * 5);
 	phone.timeInterval = 10;
@@ -24,12 +31,16 @@ function loadPhone() {
 
 	//used to count down until the phone rings
 	phone.update = function(d) {
+		this.frameRate = 0;
 		if (!phone.pauseTime) {
 			if (phone.ringing == false) {
 				phone.time -= (d * MSPF) / 1000;
 				if (phone.time <= 0) {
 					phone.ringing = true;
-					console.log("the phone is ring");
+					phone.visible = false;
+					this.frameRate = this.moveRate;
+					
+					//console.log("the phone is ring");
 				}
 			}
 		}
@@ -54,6 +65,7 @@ function loadPhone() {
 		phone.timeInterval = 10 - (2 * level);
 		phone.ringing = false;
 		phone.active = false;
+		phone.visible = true;
 		phone.pauseTime = false;
 	};
 

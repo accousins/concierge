@@ -9,7 +9,7 @@ function loadCharacter() {
 	character.xoffset = -character.width / 2;
 	character.yoffset = -character.height / 2;
 	character.busy = false;
-	character.image = Textures.load("MainCharacter.png");
+	character.image = Textures.load("Character.png");
 
 	character.speed = 0.05;
 	character.destX = character.x;
