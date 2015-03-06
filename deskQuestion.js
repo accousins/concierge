@@ -6,6 +6,7 @@ function loadDeskQ() {
 	deskQ.height = 150;
 	deskQ.image = Textures.load("SpeechBubbleMockup.png");
 	deskQ.visible = false;
+	deskQ.answered = false;
 
 	deskQ.click = function() {
 		var dy = gInput.mouse.y - this.y;
@@ -13,16 +14,19 @@ function loadDeskQ() {
 			console.log("you picked A");
 			deskQ.visible = false;
 			customers.pop();
+			deskQ.answered = true;
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
 			deskQ.visible = false;
 			customers.pop();
+			deskQ.answered = true;
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
 			deskQ.visible = false;
 			customers.pop();
+			deskQ.answered = true;
 		}
 	};
 
