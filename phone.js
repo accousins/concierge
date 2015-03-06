@@ -34,11 +34,18 @@ function loadPhone() {
 
 	//used to count down until the phone rings
 	phone.update = function(d) {
+		/*if (phone.ringing == false) {
+			phone.time -= (d*MSPF)/1000;
+			if (phone.time <= 0) {
+				phone.ringing = true;
+				sArray[0].play();
+				console.log("the phone is ring");*/
 		this.frameRate = 0;
 		if (!phone.pauseTime) {
 			if (phone.ringing == false) {
 				phone.time -= (d * MSPF) / 1000;
 				if (phone.time <= 0) {
+					sArray[0].play();
 					phone.ringing = true;
 					phone.visible = false;
 					this.frameRate = this.moveRate;
@@ -64,6 +71,8 @@ function loadPhone() {
 		//Time between phone calls
 		phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
 		phone.ringing = false;
+		sArray[0].pause();
+		sArray[0].currentTime = 0;
 		phone.alarm = false;
 	};
 

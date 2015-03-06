@@ -20,7 +20,8 @@ var phone,
     people,
     phoneQ,
     deskQ,
-    phoneRing;
+    phoneRing,
+    currSpeech;
 //a list of the customers waiting
 var customers = new List();
 //the text for how many customers are waiting
@@ -203,6 +204,87 @@ mainMenu.init = function() {
 		lives.val = 5;
 	};
 
+};
+
+var gameScreen = new Screen(true, true);
+//Game Background here:
+gameScreen.image = Textures.load("background.png");
+
+//Override the empty init function to set some properties
+gameScreen.init = function() {
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
+
+	//is the character busy?
+	busy = false;
+
+	//call load functions for all objects
+	var phones = loadPhone();
+	phone = phones[0];
+	phoneRing = phones[1];
+	this.stage.addChild(phone);
+	this.stage.addChild(phoneRing);
+	phoneQ = loadPhoneQ();
+	this.stage.addChild(phoneQ);
+	robot = loadRobot();
+	this.stage.addChild(robot);
+	computer = loadComputer();
+	this.stage.addChild(computer);
+	character = loadCharacter();
+	this.stage.addChild(character);
+	deskQ = loadDeskQ();
+	this.stage.addChild(deskQ);
+	//text boxes
+	this.stage.addChild(waiting);
+	sArray = loadSounds();
+	this.stage.addChild(sArray);
+	this.stage.addChild(timeText);
+
+	rooms = loadRooms();
+	for (var i = 0; i < rooms.length; i++) {
+		this.stage.addChild(rooms[i]);
+	}
+
+	elevator = loadElevator();
+	this.stage.addChild(elevator);
+	minibot = loadMinibot();
+	this.stage.addChild(minibot);
+	people = loadPeople();
+	this.stage.addChild(people);
+
+	//clickable things
+	sprites.push(phone);
+	sprites.push(robot);
+	sprites.push(computer);
+	sprites.push(people);
+	sprites.push(deskQ);
+	sprites.push(phoneQ);
+};
+
+//essentially restarts the game with a new level.
+gameScreen.newLevel = function(level) {
+	currLevel = level;
+	//empty the customers list
+	while (customers.length > 0) {
+		customers.pop();
+	}
+	phone.newLevel(level);
+	robot.newLevel(level);
+	phoneRing.visible = false;
+	people.newLevel(level);
+	character.newLevel(level);
+	time = 20;
+	timePause = false;
+};
+
+var pauseMenu = new Screen(false, true);
+//Override the empty init function to set some properties
+pauseMenu.init = function() {
+
+	//Since we set a background we want the screen to fill  the canvas
+	this.width = canvas.width;
+	this.height = canvas.height;
 	var gameOver = new Screen(false, false);
 	gameOver.init = function() {
 		this.width = canvas.width;
@@ -416,11 +498,31 @@ mainMenu.init = function() {
 			phoneRing.visible = true;
 		}
 		if (customers.length > 0) {
+			deskQ.visible = true;
+			currSpeech = sArray[2][Math.round(Math.random())];
+			currSpeech.play();
+		}	
+		if(deskQ.answered == true){
+			currSpeech.pause();
+			currSpeech.currentTime = 0;
+			deskQ.answered = false;
+		}
+		if (character.x != people.x && deskQ.visible) {
+			deskQ.visible = false;
+		}
+		if (character.x == robot.x && robot.active) {
+			robot.active = false;
+			robot.arrived();
+		}
+		if (phone.ringing) {
+			phoneRing.visible = true;
+		}
+		if (customers.length > 0) {
 			people.visible = true;
 		} else {
 			people.visible = false;
-		}
-	};
+	}
+};
 
 	pauseGame = function() {
 		//pause things in the main game
