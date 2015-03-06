@@ -258,8 +258,6 @@ mainMenu.init = function() {
 		this.stage.addChild(robot);
 		computer = loadComputer();
 		this.stage.addChild(computer);
-		character = loadCharacter();
-		this.stage.addChild(character);
 		deskQ = loadDeskQ();
 		this.stage.addChild(deskQ);
 		//text boxes
@@ -271,17 +269,22 @@ mainMenu.init = function() {
 		this.stage.addChild(lives);
 		lives.val = 5;
 
+		// rooms = loadRooms();
+		// for (var i = 0; i < rooms.length; i++) {
+			// this.stage.addChild(rooms[i]);
+		// }
 		rooms = loadRooms();
-		for (var i = 0; i < rooms.length; i++) {
-			this.stage.addChild(rooms[i]);
-		}
+		this.stage.addChild(rooms);
 
-		elevator = loadElevator();
-		this.stage.addChild(elevator);
+		// elevator = loadElevator();
+		// this.stage.addChild(elevator);
 		minibot = loadMinibot();
 		this.stage.addChild(minibot);
 		people = loadPeople();
 		this.stage.addChild(people);
+		
+				character = loadCharacter();
+		this.stage.addChild(character);
 
 		//clickable things
 		sprites.push(phone);
