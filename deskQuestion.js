@@ -6,7 +6,6 @@ function loadDeskQ() {
 	deskQ.height = 150;
 	
 	deskQ.visible = false;
-	deskQ.answered = false;
 
 	var questions = [{image: "SpeechBubbleMockup.png", outcomes: [1, 0, -5]}];
 	deskQ.current;
@@ -23,21 +22,18 @@ function loadDeskQ() {
 			lives.val += this.current.outcomes[0];
 			deskQ.visible = false;
 			customers.pop();
-			deskQ.answered = true;
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
 			lives.val += this.current.outcomes[1];
 			deskQ.visible = false;
 			customers.pop();
-			deskQ.answered = true;
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
 			lives.val += this.current.outcomes[2];
 			deskQ.visible = false;
 			customers.pop();
-			deskQ.answered = true;
 		}
 	};
 
