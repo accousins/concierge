@@ -187,6 +187,15 @@ var screenMan = new ScreenManager();
 //Here we're taking advantage of the sprite hierarchy structure
 world.addChild(screenMan);
 
+
+resumeGame = function() {
+	//resume game things
+	phone.pauseTime = false;
+	people.pauseTime = false;
+	character.paused = false;
+	timePause = false;
+};
+
 //Create a main menu screen
 var mainMenu = new Screen(false, false);
 //Optionally set a background for the main menu
@@ -483,12 +492,5 @@ mainMenu.init = function() {
 		for(j=0; j<1; j++){
 			peopleSpeech[i].pause();
 		}
-	};
-	resumeGame = function() {
-		//resume game things
-		phone.pauseTime = false;
-		people.pauseTime = false;
-		character.paused = false;
-		timePause = false;
-	};
+	};	
 };
