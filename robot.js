@@ -38,6 +38,7 @@ function loadRobot() {
 
 	//called when the character arrives at the robot
 	robot.arrived = function() {
+		sArray[1].play();
 		this.command = prompt("Which room number should I visit?", "");
 		//check if its a valid room
 		//if ( typeof this.command == 'number' && Math.floor(this.command) == this.command) {
@@ -96,6 +97,8 @@ function loadRobot() {
 			if (this.x == this.destX && this.y == this.destY) {
 				this.moving = false;
 				if (minibot.floor == 0) {
+					sArray[1].pause();
+					sArray[1].currentTime = 0;
 					this.busy = false;
 					robot.goHome();
 				}

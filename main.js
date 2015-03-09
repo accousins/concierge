@@ -21,7 +21,8 @@ var phone,
     phoneQ,
     deskQ,
     phoneRing,
-    currSpeech;
+    currSpeech,
+    peopleSpeech;
 //a list of the customers waiting
 var customers = new List();
 //the text for how many customers are waiting
@@ -276,6 +277,8 @@ mainMenu.init = function() {
 		this.stage.addChild(timeText);
 		sArray = loadSounds();
 		this.stage.addChild(sArray);
+		peopleSpeech = loadSpeech();
+		this.stage.addChild(peopleSpeech);
 
 
 
@@ -441,7 +444,7 @@ mainMenu.init = function() {
 			if (customers.length > 0) {
 				deskQ.pickQuestion();
 				deskQ.visible = true;
-				currSpeech = sArray[2][Math.round(Math.random())];
+				currSpeech = peopleSpeech[Math.round(Math.random())];
 				currSpeech.play();
 			}
 		}
@@ -473,6 +476,13 @@ mainMenu.init = function() {
 		phone.pauseTime = true;
 		people.pauseTime = true;
 		timePause = true;
+		var i,j;
+		for (i=0; i<1; i++){
+			sArray[i].pause();
+		}
+		for(j=0; j<1; j++){
+			peopleSpeech[i].pause();
+		}
 	};
 	resumeGame = function() {
 		//resume game things
