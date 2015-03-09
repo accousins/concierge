@@ -188,12 +188,13 @@ var screenMan = new ScreenManager();
 world.addChild(screenMan);
 
 
-resumeGame = function() {
+resGame = function() {
 	//resume game things
-	phone.pauseTime = false;
+	phone.resume();
 	people.pauseTime = false;
 	character.paused = false;
 	timePause = false;
+	
 };
 
 //Create a main menu screen
@@ -366,6 +367,7 @@ mainMenu.init = function() {
 		resumeGame.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
 		this.gui.addChild(resumeGame);
 		resumeGame.func = function() {
+			resGame();
 			screenMan.remove(pauseMenu);
 		};
 
@@ -379,7 +381,7 @@ mainMenu.init = function() {
 		returnToMenu.func = function() {
 			screenMan.remove(pauseMenu);
 			screenMan.remove(gameScreen);
-			resumeGame();
+			//resGame();
 		};
 	};
 
@@ -482,7 +484,7 @@ mainMenu.init = function() {
 	pauseGame = function() {
 		//pause things in the main game
 		character.paused = true;
-		phone.pauseTime = true;
+		phone.pause();
 		people.pauseTime = true;
 		timePause = true;
 		var i,j;
