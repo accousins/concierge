@@ -486,11 +486,13 @@ mainMenu.init = function() {
 		people.pauseTime = true;
 		timePause = true;
 		var i,j;
-		for (i=0; i<1; i++){
+		for (i=0; i<sArray.length; i++){
 			sArray[i].pause();
+			sArray[i].currentTime = 0;
 		}
-		for(j=0; j<1; j++){
+		for(j=0; j<peopleSpeech.length; j++){
 			peopleSpeech[i].pause();
+			peopleSpeech[i].currentTime = 0;
 		}
 	};	
 };
