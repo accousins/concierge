@@ -194,6 +194,11 @@ resGame = function() {
 	people.pauseTime = false;
 	character.paused = false;
 	timePause = false;
+	if (character.x == people.x && people.active) {
+			if (customers.length > 0) {
+				currSpeech.play();
+			}
+		}
 	
 };
 
@@ -415,7 +420,7 @@ mainMenu.init = function() {
 	});
 
 	gameScreen.update = function(d) {
-		waiting.text = "Customers waiting:\n" + customers.length;
+		waiting.text = "Customers waiting:" + customers.length;
 		if (!timePause) {
 			time -= (d * MSPF) / 1000;
 		}
@@ -492,9 +497,7 @@ mainMenu.init = function() {
 			sArray[i].pause();
 			sArray[i].currentTime = 0;
 		}
-		for(j=0; j<peopleSpeech.length; j++){
-			peopleSpeech[i].pause();
-			peopleSpeech[i].currentTime = 0;
-		}
+		currSpeech.pause();
+		currSpeech.currentTime = 0;
 	};	
 };
