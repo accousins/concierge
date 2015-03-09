@@ -50,13 +50,14 @@ function loadPhone() {
 					phone.alarm = true;
 					// console.log("the phone is ring");
 				}
-			} // else {
-				// if (phone.alarm) {
+			}
+			// else {
+				//if (phone.alarm) {
 					// phone.happy -= (d * MSPF) / 1000;
 					// if (phone.happy <= 0) {
 						// lives.val--;
 						// phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
-						// phone.ringing = false;
+						//phone.ringing = false;
 						// phone.alarm = false;
 					// }
 				// }
@@ -72,6 +73,21 @@ function loadPhone() {
 		sArray[0].currentTime = 0;
 		phone.ringing = false;
 		phone.alarm = false;
+	};
+	
+	phone.pause = function(){
+		phone.visible = true;
+		this.frameRate = 0;
+		//phoneRing.visible = false;
+		phone.pauseTime = true;
+	};
+	
+	phone.resume = function(){
+		if(phone.ringing){
+			//phoneRing.visible = true;
+			this.framRate = this.moveRate;
+		}
+		phone.pauseTime = false;
 	};
 
 	//What do when clicked on
