@@ -49,8 +49,12 @@ roomText.fontSize = 16;
 roomText.visible = false;
 
 //rooms to deliver to
-var deliveries = new List();
+var deliveries = [];
 
+var delivText = new TextBox();
+delivText.x = 210;
+delivText.y = 400;
+delivText.fontSize = 14;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -292,6 +296,7 @@ mainMenu.init = function() {
 
 
 		this.stage.addChild(roomText);
+		this.stage.addChild(delivText);
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
 			// this.stage.addChild(rooms[i]);
@@ -336,9 +341,11 @@ mainMenu.init = function() {
 			customers.pop();
 		}
 		//clear current deliveries
-		while(deliveries.length > 0){
-			deliveries.pop();
-		}
+		// while(deliveries.length > 0){
+			// deliveries.pop();
+		// }
+		deliveries = [];
+		
 		phone.newLevel(level);
 		robot.newLevel(level);
 		phoneRing.visible = false;
@@ -414,6 +421,11 @@ mainMenu.init = function() {
 
 	gameScreen.update = function(d) {
 		waiting.text = "Customers waiting:\n" + customers.length;
+		// var delivtxt = "";
+		// for(var i = 0; i < deliveries.length; i++){
+			// delivtxt += deliveries[i].toString() + " ";
+		// }
+		delivText.text = deliveries.toString();
 		if (!timePause) {
 			time -= (d * MSPF) / 1000;
 		}
@@ -476,6 +488,9 @@ mainMenu.init = function() {
 			people.visible = true;
 		} else {
 			people.visible = false;
+		}
+		if(character.x == computer.moveX && computer.active){
+			computer.arrived();
 		}
 	};
 

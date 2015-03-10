@@ -10,20 +10,23 @@ function loadMinibot() {
 	minibot.room = 0;
 	minibot.moveSpeed = 3;
 	minibot.correctDelivery = false;
+	minibot.delivering = false;
 
 	minibot.move = function(room) {
+		this.delivering = true;
 
 		this.floor = Math.floor(room / 100);
 		this.room = room % 100;
-		console.log(this.floor, this.room);
+		console.log(room, this.floor, this.room);
 
 		this.x = 226;
 		this.y = 515 - (95 * this.floor);
 		this.visible = true;
 		//check if delivering to the right room
-		if (deliveries.find(room)) {
+		if (deliveries.indexOf(room) >= 0) {
+			console.log("correct delivery!");
 			this.correctDelivery = true;
-			deliveries.remove(room);
+			deliveries.splice(deliveries.indexOf(room), 1);
 		}
 
 	};
@@ -61,6 +64,7 @@ function loadMinibot() {
 				this.floor = 0;
 				this.moveSpeed = -1 * this.moveSpeed;
 				this.visible = false;
+				this.delivering = false;
 				if (this.correctDelivery) {
 					lives++;
 					this.correctDelivery = false;
