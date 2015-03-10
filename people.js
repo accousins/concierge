@@ -12,19 +12,33 @@ function loadPeople() {
 	people.time = 3 + Math.floor(Math.random() * 5);
 	people.pauseTime = false;
 	people.timeInterval = 10;
-	
+
 	people.happy = 3;
 	people.alarm = false;
+
+	var questions = [{
+		question: "Does your robot take\naway someone's job?",
+		answers: "Yes.\n\nNo.\n\nMaybe?",
+		outcomes : [-1, 0, -1],
+		helptext: "Service Robots do not take away people's jobs,\nthey just make workers more efficient."
+	}];
 
 	people.update = function(d) {
 		if (!people.pauseTime) {
 			people.time -= (d * MSPF) / 1000;
 			if (people.time <= 0) {
-				var newCust = loadPeople();
+				var newCust = people.newPerson();
 				customers.push(newCust);
 				people.time = 5 + Math.floor(Math.random() * people.timeInterval);
 			}
 		}
+	};
+
+	//creates a new customer
+	people.newPerson = function() {
+		var cust = new Object;
+		cust.q = questions[Math.floor(Math.random() * questions.length)];
+		return cust;
 	};
 
 	people.click = function() {
@@ -32,12 +46,13 @@ function loadPeople() {
 		console.log("I was chosen!");
 		people.active = true;
 	};
-	
-	people.newLevel = function(level){
+
+	people.newLevel = function(level) {
 		people.pauseTime = false;
 		people.timeInterval = 10 - (2 * level);
 		people.active = false;
 		people.pausedTime = false;
+		deskQ.hideQuestion();
 	};
 
 	return people;

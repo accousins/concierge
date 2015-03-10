@@ -56,6 +56,21 @@ delivText.x = 210;
 delivText.y = 400;
 delivText.fontSize = 14;
 
+var peopleQ = new TextBox();
+peopleQ.x = 650;
+peopleQ.y = 260;
+peopleQ.fontSize = 14;
+peopleQ.text = "test question?";
+peopleQ.visible = false;
+
+var peopleA = new TextBox();
+peopleA.x = 650;
+peopleA.y = 325;
+peopleA.fontSize = 13;
+peopleA.text = "test\n\nwith\n\nnewlines";
+peopleA.visible = false;
+
+
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
 manager.clicked = false;
@@ -297,6 +312,9 @@ mainMenu.init = function() {
 
 		this.stage.addChild(roomText);
 		this.stage.addChild(delivText);
+		this.stage.addChild(peopleQ);
+		this.stage.addChild(peopleA);
+		
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
 			// this.stage.addChild(rooms[i]);
@@ -463,8 +481,7 @@ mainMenu.init = function() {
 			people.active = false;
 			console.log("I've arrived!");
 			if (customers.length > 0) {
-				deskQ.pickQuestion();
-				deskQ.visible = true;
+				deskQ.showQuestion();
 				currSpeech = peopleSpeech[Math.round(Math.random())];
 				currSpeech.play();
 			}
