@@ -13,6 +13,7 @@ function loadMinibot() {
 	minibot.delivering = false;
 
 	minibot.move = function(room) {
+		room = Number(room);
 		this.delivering = true;
 
 		this.floor = Math.floor(room / 100);
