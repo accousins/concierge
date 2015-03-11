@@ -49,7 +49,36 @@ roomText.fontSize = 16;
 roomText.visible = false;
 
 //rooms to deliver to
-var deliveries = new List();
+var deliveries = [];
+
+//text of rooms to deliver to
+var delivText = new TextBox();
+delivText.x = 210;
+delivText.y = 400;
+delivText.fontSize = 14;
+
+//text of help to answer customer questions
+var helpText = new TextBox();
+helpText.x = 210;
+helpText.y = 200;
+helpText.fontSize = 14;
+helpText.text = "Helpful information about customer's \nquestions can be found here!";
+
+//text of the customer's questions
+var peopleQ = new TextBox();
+peopleQ.x = 650;
+peopleQ.y = 260;
+peopleQ.fontSize = 14;
+peopleQ.text = "test question?";
+peopleQ.visible = false;
+
+//text of answers to the customer's questions
+var peopleA = new TextBox();
+peopleA.x = 650;
+peopleA.y = 325;
+peopleA.fontSize = 10;
+peopleA.text = "test\n\nwith\n\nnewlines";
+peopleA.visible = false;
 
 
 //Define manager; manages clicks on sprites
@@ -292,6 +321,11 @@ mainMenu.init = function() {
 
 
 		this.stage.addChild(roomText);
+		this.stage.addChild(delivText);
+		this.stage.addChild(helpText);
+		this.stage.addChild(peopleQ);
+		this.stage.addChild(peopleA);
+		
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
 			// this.stage.addChild(rooms[i]);
@@ -336,9 +370,11 @@ mainMenu.init = function() {
 			customers.pop();
 		}
 		//clear current deliveries
-		while(deliveries.length > 0){
-			deliveries.pop();
-		}
+		// while(deliveries.length > 0){
+			// deliveries.pop();
+		// }
+		deliveries = [];
+		
 		phone.newLevel(level);
 		robot.newLevel(level);
 		phoneRing.visible = false;
@@ -414,6 +450,11 @@ mainMenu.init = function() {
 
 	gameScreen.update = function(d) {
 		waiting.text = "Customers waiting:\n" + customers.length;
+		// var delivtxt = "";
+		// for(var i = 0; i < deliveries.length; i++){
+			// delivtxt += deliveries[i].toString() + " ";
+		// }
+		delivText.text = deliveries.toString();
 		if (!timePause) {
 			time -= (d * MSPF) / 1000;
 		}
@@ -451,14 +492,13 @@ mainMenu.init = function() {
 			people.active = false;
 			console.log("I've arrived!");
 			if (customers.length > 0) {
-				deskQ.pickQuestion();
-				deskQ.visible = true;
+				deskQ.showQuestion();
 				currSpeech = peopleSpeech[Math.round(Math.random())];
 				currSpeech.play();
 			}
 		}
 		if (character.x != people.x && deskQ.visible) {
-			deskQ.visible = false;
+			deskQ.hideQuestion();
 		}
 		if (deskQ.answered == true){
 			currSpeech.pause();
@@ -476,6 +516,9 @@ mainMenu.init = function() {
 			people.visible = true;
 		} else {
 			people.visible = false;
+		}
+		if(character.x == computer.moveX && computer.active){
+			computer.arrived();
 		}
 	};
 
