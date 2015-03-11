@@ -2,9 +2,9 @@
 function loadPeople() {
 	var people = new Sprite();
 	people.x = 700;
-	people.y = 500;
+	people.y = 400;
 	people.width = 100;
-	people.height = 100;
+	people.height = 200;
 	people.space = people.height + 40;
 	people.image = Textures.load("customers.png");
 	people.visible = false;
