@@ -80,6 +80,8 @@ function loadPhone() {
 		this.frameRate = 0;
 		//phoneRing.visible = false;
 		phone.pauseTime = true;
+		phoneRing.frameRate=0;
+		phoneRing.moveRate=0;
 		sArray[0].pause();
 		sArray[0].currentTime = 0;
 	};
@@ -87,7 +89,8 @@ function loadPhone() {
 	phone.resume = function(){
 		if(phone.ringing){
 			//phoneRing.visible = true;
-			this.framRate = this.moveRate;
+			phoneRing.frameRate=15;
+			phoneRing.moveRate=15;
 			sArray[0].play();
 		}
 		phone.pauseTime = false;
