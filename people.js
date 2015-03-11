@@ -60,7 +60,8 @@ function loadPeople() {
 	};
 	
 	people.change = function() {
-		var num = Math.floor(Math.random() * 2);
+		var num = 2; 
+		// var num = Math.floor(Math.random() * 3);
 		this.image = Textures.load("Customer" + num + ".png");
 	};
 	
