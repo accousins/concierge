@@ -23,6 +23,7 @@ function loadDeskQ() {
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
+			people.change();
 		}
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
@@ -30,6 +31,7 @@ function loadDeskQ() {
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
+			people.change();
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
@@ -37,6 +39,7 @@ function loadDeskQ() {
 			deskQ.visible = false;
 			deskQ.answered = true;
 			customers.pop();
+			people.change();
 		}
 	};
 

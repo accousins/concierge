@@ -2,11 +2,11 @@
 function loadPeople() {
 	var people = new Sprite();
 	people.x = 700;
-	people.y = 500;
+	people.y = 400;
 	people.width = 100;
-	people.height = 100;
+	people.height = 200;
 	people.space = people.height + 40;
-	people.image = Textures.load("customers.png");
+	people.image = Textures.load("Customer0.png");
 	people.visible = false;
 	people.active = false;
 	people.time = 3 + Math.floor(Math.random() * 5);
@@ -33,12 +33,19 @@ function loadPeople() {
 		people.active = true;
 	};
 	
+	people.change = function() {
+		var num = Math.floor(Math.random() * 2);
+		this.image = Textures.load("Customer" + num + ".png");
+	};
+	
 	people.newLevel = function(level){
 		people.pauseTime = false;
 		people.timeInterval = 10 - (2 * level);
 		people.active = false;
 		people.pausedTime = false;
 	};
+
+	people.change();
 
 	return people;
 }
