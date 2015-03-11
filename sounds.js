@@ -7,7 +7,7 @@ function loadSounds(){
 	sArray.push(pRing);
 	sArray.push(roBeep);
 	sArray.push(bellRing);
-	//sArray contents: 0 = phoneRing; 1 = robot Beep;	
+	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell	
 	return sArray;
 }
 
