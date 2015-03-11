@@ -51,11 +51,20 @@ roomText.visible = false;
 //rooms to deliver to
 var deliveries = [];
 
+//text of rooms to deliver to
 var delivText = new TextBox();
 delivText.x = 210;
 delivText.y = 400;
 delivText.fontSize = 14;
 
+//text of help to answer customer questions
+var helpText = new TextBox();
+helpText.x = 210;
+helpText.y = 200;
+helpText.fontSize = 14;
+helpText.text = "Helpful information about customer's \nquestions can be found here!";
+
+//text of the customer's questions
 var peopleQ = new TextBox();
 peopleQ.x = 650;
 peopleQ.y = 260;
@@ -63,10 +72,11 @@ peopleQ.fontSize = 14;
 peopleQ.text = "test question?";
 peopleQ.visible = false;
 
+//text of answers to the customer's questions
 var peopleA = new TextBox();
 peopleA.x = 650;
 peopleA.y = 325;
-peopleA.fontSize = 13;
+peopleA.fontSize = 10;
 peopleA.text = "test\n\nwith\n\nnewlines";
 peopleA.visible = false;
 
@@ -312,6 +322,7 @@ mainMenu.init = function() {
 
 		this.stage.addChild(roomText);
 		this.stage.addChild(delivText);
+		this.stage.addChild(helpText);
 		this.stage.addChild(peopleQ);
 		this.stage.addChild(peopleA);
 		
@@ -487,7 +498,7 @@ mainMenu.init = function() {
 			}
 		}
 		if (character.x != people.x && deskQ.visible) {
-			deskQ.visible = false;
+			deskQ.hideQuestion();
 		}
 		if (deskQ.answered == true){
 			currSpeech.pause();

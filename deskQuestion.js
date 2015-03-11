@@ -25,6 +25,9 @@ function loadDeskQ() {
 		
 		peopleQ.visible = true;
 		peopleA.visible = true;
+		
+		//update the help text
+		helpText.text = customers.getAt(0).q.helptext;
 	};
 	
 	deskQ.hideQuestion = function(){
@@ -45,14 +48,14 @@ function loadDeskQ() {
 		if (dy >= 100 && dy <= 124) {
 			console.log("you picked B");
 			lives += customers.getAt(0).q.outcomes[1];
-			deskQ.hideQuestion;
+			deskQ.hideQuestion();
 			deskQ.answered = true;
 			customers.pop();
 		}
 		if (dy >= 125 && dy <= 150) {
 			console.log("you picked C");
 			lives += customers.getAt(0).q.outcomes[2];
-			deskQ.hideQuestion;
+			deskQ.hideQuestion();
 			deskQ.answered = true;
 			customers.pop();
 		}

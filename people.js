@@ -18,9 +18,21 @@ function loadPeople() {
 
 	var questions = [{
 		question: "Does your robot take\naway someone's job?",
-		answers: "Yes.\n\nNo.\n\nMaybe?",
+		answers: "Yes.\n\n\nNo.\n\n\nMaybe?",
 		outcomes : [-1, 0, -1],
-		helptext: "Service Robots do not take away people's jobs,\nthey just make workers more efficient."
+		helptext: "Service Robots do not take away people's jobs,\nthey just make workers more efficient!"
+	},
+	{
+		question: "Will the robot really\ndeliver things to my \nroom?",
+		answers: "Yes.\n\n\nNo.\n\n\nMaybe?",
+		outcomes: [0,-1,-1],
+		helptext: "This robot will autonomously bring small objects\nstraight to resident's rooms!"
+	},
+	{
+		question: "How does the robot\nuse the elevators?",
+		answers: "Magic.\n\n\nSomeone presses the button.\n\n\nIt is WiFi Equipped.",
+		outcomes: [-1,-1,0],
+		helptext: "The robot uses telepathy to talk to the\nbuilding, in other words WiFi!"
 	}];
 
 	people.update = function(d) {
