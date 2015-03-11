@@ -89,6 +89,7 @@ function loadPhone() {
 	phone.resume = function(){
 		if(phone.ringing){
 			//phoneRing.visible = true;
+			phone.visible = false;
 			phoneRing.frameRate=15;
 			phoneRing.moveRate=15;
 			sArray[0].play();
