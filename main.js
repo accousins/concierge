@@ -463,7 +463,7 @@ mainMenu.init = function() {
 		// }
 		delivText.text = deliveries.toString();
 
-		waiting.text = "Customers waiting:" + customers.length;
+		waiting.text = "Customers waiting: " + customers.length;
 
 		if (!timePause) {
 			time -= (d * MSPF) / 1000;
