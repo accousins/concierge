@@ -237,6 +237,9 @@ var mainMenu = new Screen(false, false);
 mainMenu.image = Textures.load("TitleImg.png");
 screenMan.push(mainMenu);
 
+
+
+
 //Override the empty init function to set some properties
 mainMenu.init = function() {
 	//Since we set a background we want the screen to fill  the canvas
@@ -259,7 +262,46 @@ mainMenu.init = function() {
 		gameScreen.newLevel(1);
 		lives = 5;
 	};
-
+	
+	var credButton = new TextButton("Credits");
+	credButton.label.dropShadow = true;
+	credButton.x = newGame.x-55;
+	credButton.y = newGame.y+20;
+	//credButton.center = true;
+	credButton.label.fontSize = 30;
+	credButton.setLabelColors("#000000", "#ffffff", "#ff0000");
+	this.gui.addChild(credButton);
+	credButton.func = function(){
+		screenMan.push(credits);
+	};
+	
+	var credits = new Screen(false, false);
+	credits.init = function(){
+		this.width = canvas.width;
+		this.height = canvas.height;
+		var credScreen = new Sprite();
+		credScreen.width = canvas.width;
+		credScreen.height = canvas.height;
+		credScreen.x = 0;
+		credScreen.y = 0;
+		credScreen.image = Textures.load("credits.png");
+		this.stage.addChild(credScreen);
+		this.gui.x = canvas.width;
+		this.gui.y = canvas.height;
+		var back = new TextButton("Main Menu");
+		back.x = 600;
+		back.y = 100;
+		back.center = true;
+		back.label.dropShadow = true;
+		back.label.fontSize = 30;
+		back.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.stage.addChild(back);
+		this.gui.addChild(back);
+		back.func = function(){
+			screenMan.remove(credits);
+		};
+	};
+	
 	var gameOver = new Screen(false, false);
 	gameOver.init = function() {
 		this.width = canvas.width;
