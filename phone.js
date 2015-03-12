@@ -30,6 +30,7 @@ function loadPhone() {
 	phone.time = 3 + Math.floor(Math.random() * 5);
 	phone.timeInterval = 10;
 	phone.pauseTime = false;
+	phone.timer = 0;
 
 	// phone.happy = 3;
 	// phone.alarm = false;
@@ -48,20 +49,20 @@ function loadPhone() {
 					this.frameRate = this.moveRate;
 					this.frameRate = 0;
 					phone.alarm = true;
+					phone.timer = 5;
 					// console.log("the phone is ring");
 				}
 			}
-			// else {
-				//if (phone.alarm) {
-					// phone.happy -= (d * MSPF) / 1000;
-					// if (phone.happy <= 0) {
-						// lives.val--;
-						// phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
-						//phone.ringing = false;
-						// phone.alarm = false;
-					// }
-				// }
-			// }
+			else{
+				if(phone.timer < 0 ){
+					phoneRing.visible = false;
+					phone.arrived();
+					lives--;
+				}
+				else{
+					phone.timer -= (d * MSPF) / 1000;
+				}
+			}
 		}
 	};
 
