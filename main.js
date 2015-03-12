@@ -74,7 +74,7 @@ peopleQ.visible = false;
 
 //text of answers to the customer's questions
 var peopleA = new TextBox();
-peopleA.x = 650;
+peopleA.x = 642;
 peopleA.y = 325;
 peopleA.fontSize = 10;
 peopleA.text = "test\n\nwith\n\nnewlines";
