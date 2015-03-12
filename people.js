@@ -37,6 +37,13 @@ function loadPeople() {
 
 	people.update = function(d) {
 		if (!people.pauseTime) {
+			for(var i = 0; i < customers.length; i++){
+				customers.getAt(i).time -= (d * MSPF) / 1000;
+				if(customers.getAt(i).time < 0){
+					customers.remove(customers.getAt(i));
+					lives--;
+				}
+			}
 			people.time -= (d * MSPF) / 1000;
 			if (people.time <= 0) {
 				var newCust = people.newPerson();
@@ -50,6 +57,7 @@ function loadPeople() {
 	people.newPerson = function() {
 		var cust = new Object;
 		cust.q = questions[Math.floor(Math.random() * questions.length)];
+		cust.time = 10;
 		return cust;
 	};
 
