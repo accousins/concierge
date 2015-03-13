@@ -105,11 +105,13 @@ function loadPeople() {
 
 	people.update = function(d) {
 		if (!people.pauseTime) {
-			for (var i = 0; i < customers.length; i++) {
-				customers.getAt(i).time -= (d * MSPF) / 1000;
-				if (customers.getAt(i).time < 0) {
-					customers.remove(customers.getAt(i));
-					lives--;
+			if (!deskQ.visible) {
+				for (var i = 0; i < customers.length; i++) {
+					customers.getAt(i).time -= (d * MSPF) / 1000;
+					if (customers.getAt(i).time < 0) {
+						customers.remove(customers.getAt(i));
+						lives--;
+					}
 				}
 			}
 			people.time -= (d * MSPF) / 1000;
@@ -117,7 +119,7 @@ function loadPeople() {
 				sArray[2].play();
 				var newCust = people.newPerson();
 				customers.push(newCust);
-				people.time = (5 - currLevel) + Math.floor(Math.random() * people.timeInterval);
+				people.time = (12 - (currLevel * 2)) + Math.floor(Math.random() * people.timeInterval);
 			}
 		}
 	};
@@ -126,7 +128,7 @@ function loadPeople() {
 	people.newPerson = function() {
 		var cust = new Object;
 		cust.q = questions[Math.floor(Math.random() * questions.length)];
-		cust.time = 20 - (currLevel * 2);
+		cust.time = 30 - (currLevel * 2);
 		return cust;
 	};
 
@@ -144,7 +146,7 @@ function loadPeople() {
 
 	people.newLevel = function(level) {
 		people.pauseTime = false;
-		people.timeInterval = 10 - (2 * level);
+		people.timeInterval = 15 - (2 * level);
 		people.active = false;
 		people.pausedTime = false;
 		deskQ.hideQuestion();

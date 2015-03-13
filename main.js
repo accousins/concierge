@@ -317,6 +317,7 @@ mainMenu.init = function() {
 	gameOver.init = function() {
 		this.width = canvas.width;
 		this.height = canvas.height;
+		pauseGame();
 
 		var gameOverScreen = new Sprite();
 		gameOverScreen.width = 600;
@@ -502,6 +503,10 @@ mainMenu.init = function() {
 		timePause = false;
 		minibot.visible = false;
 		minibot.floor = 0;
+		delivTime = delivTime - currLevel;
+		if(level == 1){
+			delivTime = 20;
+		}
 	};
 
 	var pauseMenu = new Screen(false, true);
