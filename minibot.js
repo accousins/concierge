@@ -57,7 +57,7 @@ function loadMinibot() {
 
 	minibot.update = function(d) {
 		//mbMove();
-		if (!timePaused) {
+		if (!timePause) {
 			if (this.floor != 0) {
 				this.x += this.moveSpeed;
 				if (this.x > (275 + (75 * (this.room - 1)))) {

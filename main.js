@@ -500,6 +500,8 @@ mainMenu.init = function() {
 		character.newLevel(level);
 		time = 60;
 		timePause = false;
+		minibot.visible = false;
+		minibot.floor = 0;
 	};
 
 	var pauseMenu = new Screen(false, true);
