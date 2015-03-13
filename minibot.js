@@ -13,6 +13,7 @@ function loadMinibot() {
 	minibot.delivering = false;
 
 	minibot.move = function(room) {
+		delivTimer = delivTime;
 		room = Number(room);
 		this.delivering = true;
 
@@ -56,22 +57,23 @@ function loadMinibot() {
 
 	minibot.update = function(d) {
 		//mbMove();
-		if (this.floor != 0) {
-			this.x += this.moveSpeed;
-			if (this.x > (275 + (75 * (this.room - 1)))) {
-				this.moveSpeed = -1 * this.moveSpeed;
-			}
-			if (this.x < 225) {
-				this.floor = 0;
-				this.moveSpeed = -1 * this.moveSpeed;
-				this.visible = false;
-				this.delivering = false;
-				if (this.correctDelivery) {
-					lives++;
-					this.correctDelivery = false;
+		if (!timePaused) {
+			if (this.floor != 0) {
+				this.x += this.moveSpeed;
+				if (this.x > (275 + (75 * (this.room - 1)))) {
+					this.moveSpeed = -1 * this.moveSpeed;
 				}
-				else {
-					lives--;
+				if (this.x < 225) {
+					this.floor = 0;
+					this.moveSpeed = -1 * this.moveSpeed;
+					this.visible = false;
+					this.delivering = false;
+					if (this.correctDelivery) {
+						lives++;
+						this.correctDelivery = false;
+					} else {
+						lives--;
+					}
 				}
 			}
 		}
