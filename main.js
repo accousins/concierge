@@ -419,7 +419,7 @@ mainMenu.init = function() {
 		phoneRing.visible = false;
 		people.newLevel(level);
 		character.newLevel(level);
-		phoneQuestion.newLevel(level);
+		phoneQ.newLevel(level);
 		time = 60;
 		timePause = false;
 	};
