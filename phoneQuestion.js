@@ -26,6 +26,10 @@ function loadPhoneQ() {
 			// phoneQ.visible = false;
 		// }
 	};
+	
+	phoneQ.newLevel = function(level){
+		
+	};
 
 	return phoneQ;
 }

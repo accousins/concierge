@@ -21,8 +21,8 @@ var phone,
     phoneQ,
     deskQ,
     phoneRing,
-    currSpeech,
-    peopleSpeech;
+    peopleSpeech,
+    mainFromPause = false;
 //a list of the customers waiting
 var customers = new List();
 //the text for how many customers are waiting
@@ -225,7 +225,7 @@ resGame = function() {
 	timePause = false;
 	if (character.x == people.x && people.active) {
 			if (customers.length > 0) {
-				currSpeech.play();
+				customers.getAt(0).voice.play();
 			}
 		}
 	
@@ -267,7 +267,6 @@ mainMenu.init = function() {
 	credButton.label.dropShadow = true;
 	credButton.x = newGame.x-55;
 	credButton.y = newGame.y+20;
-	//credButton.center = true;
 	credButton.label.fontSize = 30;
 	credButton.setLabelColors("#000000", "#ffffff", "#ff0000");
 	this.gui.addChild(credButton);
@@ -276,26 +275,18 @@ mainMenu.init = function() {
 	};
 	
 	var credits = new Screen(false, false);
+	credits.image = Textures.load("credits.png");
 	credits.init = function(){
 		this.width = canvas.width;
 		this.height = canvas.height;
-		var credScreen = new Sprite();
-		credScreen.width = canvas.width;
-		credScreen.height = canvas.height;
-		credScreen.x = 0;
-		credScreen.y = 0;
-		credScreen.image = Textures.load("credits.png");
-		this.stage.addChild(credScreen);
-		this.gui.x = canvas.width;
-		this.gui.y = canvas.height;
+		this.gui.x = 0;
+		this.gui.y = 0;
 		var back = new TextButton("Main Menu");
-		back.x = 600;
-		back.y = 100;
-		back.center = true;
+		back.x = 350;
+		back.y = 500;
 		back.label.dropShadow = true;
 		back.label.fontSize = 30;
 		back.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
-		this.stage.addChild(back);
 		this.gui.addChild(back);
 		back.func = function(){
 			screenMan.remove(credits);
@@ -428,6 +419,7 @@ mainMenu.init = function() {
 		phoneRing.visible = false;
 		people.newLevel(level);
 		character.newLevel(level);
+		phoneQuestion.newLevel(level);
 		time = 60;
 		timePause = false;
 	};
@@ -464,7 +456,7 @@ mainMenu.init = function() {
 		returnToMenu.func = function() {
 			screenMan.remove(pauseMenu);
 			screenMan.remove(gameScreen);
-			//resGame();
+			mainFromPause = true;
 		};
 	};
 
@@ -554,8 +546,8 @@ mainMenu.init = function() {
 			customers.getAt(0).voice.currentTime = 0;
 		}
 		if (deskQ.answered == true){
-			currSpeech.pause();
-			currSpeech.currentTime = 0;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			deskQ.answered = false;
 		}
 		if (character.x == robot.x && robot.active) {
@@ -586,7 +578,7 @@ mainMenu.init = function() {
 			sArray[i].pause();
 			sArray[i].currentTime = 0;
 		}
-		currSpeech.pause();
-		currSpeech.currentTime = 0;
+		customers.getAt(0).voice.pause();
+		customers.getAt(0).voice.currentTime = 0;
 	};	
 };
