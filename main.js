@@ -224,6 +224,9 @@ resGame = function() {
 	phone.resume();
 	people.pauseTime = false;
 	character.paused = false;
+	phoneRing.visible = false;
+	phoneRing.frameRate = 15;
+	phoneRing.moveRate = 15;
 	timePause = false;
 	sArray[3].play();
 	if (character.x == people.x && people.active) {
