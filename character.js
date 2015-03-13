@@ -9,7 +9,7 @@ function loadCharacter() {
 	character.xoffset = -character.width / 2;
 	character.yoffset = -character.height / 2;
 	character.busy = false;
-	character.image = Textures.load("MainCharacter.png");
+	character.image = Textures.load("redCharacter.png");
 
 	character.speed = 0.05;
 	character.destX = character.x;
@@ -17,9 +17,10 @@ function loadCharacter() {
 	character.xTravel = 0;
 	character.yTravel = 0;
 	character.moving = false;
+	character.paused = false;
 
 	character.moveTo = function(x, y) {
-		if(this.busy == false){
+		if(!this.busy){
 			if(this.x != x || this.y != y){
 				this.destX = x;
 				this.destY = y;
@@ -40,7 +41,7 @@ function loadCharacter() {
 	};
 	
 	character.update = function(d) {
-		if(this.moving == true){
+		if(this.moving && !this.paused){
 			character.calcMove();
 			this.x += this.xTravel;
 			this.y += this.yTravel;			
@@ -50,5 +51,14 @@ function loadCharacter() {
 			}
 		}		
 	};
+	
+	character.newLevel = function(level){
+		character.x = 285;
+		character.y = 500;
+		character.moving = false;
+		character.busy = false;
+		character.paused = false;
+	};
+	
 	return character;
 }
