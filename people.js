@@ -130,6 +130,7 @@ function loadPeople() {
 			}
 			people.time -= (d * MSPF) / 1000;
 			if (people.time <= 0) {
+                sArray[2].play(); 
 				var newCust = people.newPerson();
 				customers.push(newCust);
 				people.time = 5 + Math.floor(Math.random() * people.timeInterval);
@@ -161,4 +162,3 @@ function loadPeople() {
 
 	return people;
 }
-
