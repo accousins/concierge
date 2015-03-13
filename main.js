@@ -507,6 +507,7 @@ mainMenu.init = function() {
 		if(level == 1){
 			delivTime = 20;
 		}
+		helpText.text = "Helpful information about customer's \nquestions can be found here!";
 	};
 
 	var pauseMenu = new Screen(false, true);
@@ -519,6 +520,12 @@ mainMenu.init = function() {
 
 		this.gui.x = canvas.width / 2;
 		this.gui.y = canvas.height / 2;
+		
+		// this.stage.addChild(star1);
+		// this.stage.addChild(star2);
+		// this.stage.addChild(star3);
+		// this.stage.addChild(star4);
+		// this.stage.addChild(star5);
 
 		var resumeGame = new TextButton("Resume Game");
 		resumeGame.center = true;
@@ -546,6 +553,7 @@ mainMenu.init = function() {
 	};
 
 	var levelComplete = new Screen(false, true);
+	levelComplete.image = Textures.load("levelComplete.png");
 	levelComplete.init = function() {
 
 		//Since we set a background we want the screen to fill  the canvas
@@ -559,11 +567,24 @@ mainMenu.init = function() {
 		nextLevel.center = true;
 		nextLevel.label.dropShadow = true;
 		nextLevel.label.fontSize = 30;
-		nextLevel.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		nextLevel.setLabelColors("#000000", "#ffffff", "#ff0000");
 		this.gui.addChild(nextLevel);
 		nextLevel.func = function() {
 			screenMan.remove(levelComplete);
 			gameScreen.newLevel(currLevel + 1);
+		};
+		
+		var returnToMenu = new TextButton("Main Menu");
+		returnToMenu.y = 50;
+		returnToMenu.center = true;
+		returnToMenu.label.dropShadow = true;
+		returnToMenu.label.fontSize = 30;
+		returnToMenu.setLabelColors("#000000", "#ffffff", "#ff0000");
+		this.gui.addChild(returnToMenu);
+		returnToMenu.func = function() {
+			screenMan.remove(levelComplete);
+			screenMan.remove(gameScreen);
+			//resGame();
 		};
 	};
 
