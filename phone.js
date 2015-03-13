@@ -1,8 +1,8 @@
 //This class will handle the phone object
 function loadPhone() {
 	var phone = new Sprite();
-	phone.x = 100;
-	phone.y = 500;
+	phone.x = 150;
+	phone.y = 450;
 	phone.width = 70;
 	phone.height = 50;
 	phone.image = Textures.load("Actual_Phone.png");
@@ -12,8 +12,8 @@ function loadPhone() {
 	var act = 0;
 
 	var phoneRing = new Sprite();
-	phoneRing.x = 100;
-	phoneRing.y = 500;
+	phoneRing.x = 150;
+	phoneRing.y = 450;
 	phoneRing.width = 70;
 	phoneRing.height = 50;
 	phoneRing.image = Textures.load("phone_ring_ani.png");
@@ -100,7 +100,7 @@ function loadPhone() {
 
 	//What do when clicked on
 	phone.click = function() {
-		character.moveTo(this.x, this.y);
+		character.moveTo(this.x, 500);
 		phone.active = true;
 	};
 

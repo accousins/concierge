@@ -4,11 +4,11 @@ function loadRobot() {
 	var robot = new Sprite();
 	robot.command = 0;
 	robot.x = 15;
-	robot.y = 500;
+	robot.y = 450;
 	robot.homeX = 15;
-	robot.homeY = 500;
-	robot.width = 50;
-	robot.height = 100;
+	robot.homeY = 450;
+	robot.width = 75;
+	robot.height = 150;
 	robot.busy = false;
 	robot.image = Textures.load("Actual_robot.png");
 
@@ -31,7 +31,7 @@ function loadRobot() {
 	//What do when clicked on
 	robot.click = function() {
 		if (character.busy == false) {
-			character.moveTo(this.x, this.y);
+			character.moveTo(this.x, 500);
 			robot.active = true;
 		}
 	};
@@ -111,7 +111,7 @@ function loadRobot() {
 	robot.newLevel = function(level) {
 		//robot.frameRate = 0;
 		robot.x = 15;
-		robot.y = 500;
+		robot.y = 450;
 		robot.busy = false;
 		robot.moving = false;
 		robot.active = false;

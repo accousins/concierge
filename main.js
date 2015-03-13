@@ -176,7 +176,7 @@ ScreenManager.prototype.remove = function(screen) {
 	this.screens.remove(screen);
 };
 
-//Override th defult update function
+//Override the defult update function
 ScreenManager.prototype.update = function(d) {
 	var screens = this.screens;
 
@@ -497,6 +497,8 @@ mainMenu.init = function() {
 		phone.newLevel(level);
 		robot.newLevel(level);
 		phoneRing.visible = false;
+		phoneRing.frameRate = 15;
+		phoneRing.moveRate = 15;
 		people.newLevel(level);
 		character.newLevel(level);
 		time = 60;
