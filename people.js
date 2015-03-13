@@ -142,6 +142,7 @@ function loadPeople() {
 	people.newPerson = function() {
 		var cust = new Object;
 		cust.q = questions[Math.floor(Math.random() * questions.length)];
+		cust.voice = peopleSpeech[Math.round(Math.random())];
 		cust.time = 10;
 		return cust;
 	};

@@ -44,7 +44,7 @@ function loadPhone() {
 				phone.visible = true;
 				if (phone.time <= 0) {
 					phone.ringing = true;
-					sArray[0].play();
+					//sArray[0].play();
 					phone.visible = false;
 					this.frameRate = this.moveRate;
 					this.frameRate = 0;

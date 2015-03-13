@@ -545,12 +545,13 @@ mainMenu.init = function() {
 			console.log("I've arrived!");
 			if (customers.length > 0) {
 				deskQ.showQuestion();
-				currSpeech = peopleSpeech[Math.round(Math.random())];
-				currSpeech.play();
+				customers.getAt(0).voice.play();
 			}
 		}
 		if (character.x != people.x && deskQ.visible) {
 			deskQ.hideQuestion();
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 		}
 		if (deskQ.answered == true){
 			currSpeech.pause();
