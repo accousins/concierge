@@ -600,6 +600,12 @@ mainMenu.init = function() {
 			pauseGame();
 		}
 	});
+	
+	gInput.addFunc(76, function(){
+		if(screenMan.screens.find(gameScreen)){
+			time = 0;
+		}
+	});
 
 	gameScreen.update = function(d) {
 		delivText.text = deliveries.toString();
