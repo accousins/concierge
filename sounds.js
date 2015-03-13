@@ -6,10 +6,12 @@ function loadSounds(){
 	var roBeep = new Audio("http://people.ucsc.edu/~donalexa/roBeep.wav");
 	roBeep.volume = 0.3;
 	var bellRing = new Audio("http://people.ucsc.edu/~donalexa/bellRing.wav");
+	var bgMusic = new Audio("bgMusic.mp3");
 	sArray.push(pRing);
 	sArray.push(roBeep);
 	sArray.push(bellRing);
-	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell	
+	sArray.push(bgMusic);
+	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell; 3 = background music
 	return sArray;
 }
 
