@@ -78,9 +78,9 @@ function loadPeople() {
 		helptext : "The robot doesn't accept any tips,\nbut it does like tweets!"
 	}, {
 		question : "How long does the\nrobot's battery last?",
-		answers : "3-4 hours driving.\n\n\nIt has to stay plugged in.\n\n\nNo batteries, just solar panals.",
+		answers : "3-4 hours driving.\n\n\nIt has to stay plugged in.\n\n\nNo batteries, just solar panels.",
 		outcomes : [0, -1, -1],
-		helptext : "The robot's battery lasts 3-4 hours driving,\n8 hours resting, but it waits in a charging dock\nso it can do multiple deliveries an hour 24/7!"
+		helptext : "The robot's battery lasts 3-4 hours driving,\n8 hours resting, but it waits in a charging dock\nso it can do multiple deliveries an hour, 24/7!"
 	}, {
 		question : "Will the robot wash\nmy laundry?",
 		answers : "Yup, built in washer/dryer.\n\n\nIt can pick it up to be washed.\n\n\nNo, but it likes to play with socks.",
@@ -129,6 +129,7 @@ function loadPeople() {
 		var cust = new Object;
 		cust.q = questions[Math.floor(Math.random() * questions.length)];
 		cust.time = 30 - (currLevel * 2);
+		cust.voice = peopleSpeech[Math.round(Math.random())];
 		return cust;
 	};
 

@@ -112,6 +112,8 @@ function loadPhone() {
 		phone.active = false;
 		phone.visible = true;
 		phone.pauseTime = false;
+		phoneRing.frameRate = 15;
+		phoneRing.moveRate = 15;
 	};
 
 	var phones = [phone, phoneRing];

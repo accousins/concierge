@@ -2,21 +2,27 @@
 function loadSounds(){
 	var sArray = new Array();
 	var pRing = new Audio("http://people.ucsc.edu/~donalexa/phoneRing.wav");
+	pRing.volume = 0.4;
 	var roBeep = new Audio("http://people.ucsc.edu/~donalexa/roBeep.wav");
+	roBeep.volume = 0.3;
 	var bellRing = new Audio("http://people.ucsc.edu/~donalexa/bellRing.wav");
+	var bgMusic = new Audio("bgMusic.mp3");
+	bgMusic.volume = 0.15;
+	bgMusic.loop = true;
+	bgMusic.preload = "auto";
 	sArray.push(pRing);
 	sArray.push(roBeep);
 	sArray.push(bellRing);
-	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell	
+	sArray.push(bgMusic);
+	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell; 3 = background music
 	return sArray;
 }
 
 function loadSpeech(){
 	var peopleSpeech = new Array();
 	var psOne = new Audio("http://people.ucsc.edu/~donalexa/gibberish1.wav");
-	psOne.on = false;
 	var psThree = new Audio("http://people.ucsc.edu/~donalexa/CBT.mp3");
-	psThree.on = false;
+	psThree.volume = 0.4;
 	peopleSpeech.push(psOne);
 	peopleSpeech.push(psThree);	
 	return peopleSpeech;

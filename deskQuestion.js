@@ -38,30 +38,41 @@ function loadDeskQ() {
 	
 	deskQ.click = function() {
 		var dy = gInput.mouse.y - this.y;
-		if (dy >= 75 && dy <= 99) {
+		if (dy >= 75 && dy <= 99 && deskQ.visible) {
 			console.log("you picked A");
 			lives += customers.getAt(0).q.outcomes[0];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}
-		if (dy >= 100 && dy <= 124) {
+		if (dy >= 100 && dy <= 124 && deskQ.visible) {
 			console.log("you picked B");
 			lives += customers.getAt(0).q.outcomes[1];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}
-		if (dy >= 125 && dy <= 150) {
+		if (dy >= 125 && dy <= 150 && deskQ.visible) {
 			console.log("you picked C");
 			lives += customers.getAt(0).q.outcomes[2];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}
+	};
+	
+	deskQ.newLevel = function(level){
+		deskQ.visible = false;
+		deskQ.answered = false;
 	};
 
 	return deskQ;
