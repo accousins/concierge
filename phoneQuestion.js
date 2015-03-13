@@ -9,7 +9,7 @@ function loadPhoneQ() {
 
 	phoneQ.click = function() {
 		var dy = gInput.mouse.y - this.y;
-		if (dy >= 75 && dy <= 150) {
+		if (dy >= 75 && dy <= 150 && phoneQ.visible) {
 			console.log("you picked A");
 			phoneQ.visible = false;
 			roomText.visible = false;
