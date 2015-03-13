@@ -5,6 +5,11 @@ clearColor = [0, 0, 0, 0];
 //Sprite name changes
 var sprites = new Array();
 var busy;
+
+//how long can deliveries wait?
+var delivTime = 15;
+var delivTimer = delivTime;
+
 //time
 var time = 60;
 var timePause = false;
@@ -36,7 +41,6 @@ timeText.x = 595;
 timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
-
 
 // lives/stars
 var lives = 5;
@@ -79,7 +83,6 @@ peopleA.y = 325;
 peopleA.fontSize = 10;
 peopleA.text = "test\n\nwith\n\nnewlines";
 peopleA.visible = false;
-
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -216,7 +219,6 @@ var screenMan = new ScreenManager();
 //Here we're taking advantage of the sprite hierarchy structure
 world.addChild(screenMan);
 
-
 resGame = function() {
 	//resume game things
 	phone.resume();
@@ -224,11 +226,11 @@ resGame = function() {
 	character.paused = false;
 	timePause = false;
 	if (character.x == people.x && people.active) {
-			if (customers.length > 0) {
-				currSpeech.play();
-			}
+		if (customers.length > 0) {
+			currSpeech.play();
 		}
-	
+	}
+
 };
 
 //Create a main menu screen
@@ -236,9 +238,6 @@ var mainMenu = new Screen(false, false);
 //Optionally set a background for the main menu
 mainMenu.image = Textures.load("TitleImg.png");
 screenMan.push(mainMenu);
-
-
-
 
 //Override the empty init function to set some properties
 mainMenu.init = function() {
@@ -262,33 +261,33 @@ mainMenu.init = function() {
 		gameScreen.newLevel(1);
 		lives = 5;
 	};
-	
+
 	var credButton = new TextButton("Credits");
 	credButton.label.dropShadow = true;
-	credButton.x = newGame.x-55;
-	credButton.y = newGame.y+20;
+	credButton.x = newGame.x - 55;
+	credButton.y = newGame.y + 20;
 	//credButton.center = true;
 	credButton.label.fontSize = 30;
 	credButton.setLabelColors("#000000", "#ffffff", "#ff0000");
 	this.gui.addChild(credButton);
-	credButton.func = function(){
+	credButton.func = function() {
 		screenMan.push(credits);
 	};
-	
+
 	var tutorialButton = new TextButton("Tutorial");
 	tutorialButton.label.dropShadow = true;
-	tutorialButton.x = newGame.x-55;
-	tutorialButton.y = newGame.y-55;
+	tutorialButton.x = newGame.x - 55;
+	tutorialButton.y = newGame.y - 55;
 	//tutorialButton.center = true;
 	tutorialButton.label.fontSize = 30;
 	tutorialButton.setLabelColors("#000000", "#ffffff", "#ff0000");
 	this.gui.addChild(tutorialButton);
-	tutorialButton.func = function(){
+	tutorialButton.func = function() {
 		screenMan.push(tutorialScreen);
 	};
-	
+
 	var credits = new Screen(false, false);
-	credits.init = function(){
+	credits.init = function() {
 		this.width = canvas.width;
 		this.height = canvas.height;
 		var credScreen = new Sprite();
@@ -309,15 +308,16 @@ mainMenu.init = function() {
 		back.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
 		this.stage.addChild(back);
 		this.gui.addChild(back);
-		back.func = function(){
+		back.func = function() {
 			screenMan.remove(credits);
 		};
 	};
-	
+
 	var gameOver = new Screen(false, false);
 	gameOver.init = function() {
 		this.width = canvas.width;
 		this.height = canvas.height;
+		pauseGame();
 
 		var gameOverScreen = new Sprite();
 		gameOverScreen.width = 600;
@@ -342,61 +342,61 @@ mainMenu.init = function() {
 			screenMan.remove(gameScreen);
 		};
 	};
-	
+
 	//tutorial screen
 	var tutorialScreen = new Screen(false, false);
 	tutorialScreen.image = Textures.load("Slide1.JPG");
-	tutorialScreen.init = function(){
+	tutorialScreen.init = function() {
 		this.width = canvas.width;
 		this.height = canvas.height;
-		
+
 		var slides = ["Slide1.JPG", "Slide2.JPG", "Slide3.JPG", "Slide4.JPG", "Slide5.JPG"];
 		var currSlide = 0;
-		
+
 		var next = new TextButton("Next");
 		next.y = 50;
-		next.x = canvas.width - canvas.width/4;
+		next.x = canvas.width - canvas.width / 4;
 		next.center = true;
 		next.label.dropShadow = true;
 		next.label.fontSize = 30;
 		next.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
 		this.gui.addChild(next);
-		next.func = function(){
+		next.func = function() {
 			//advance the background
-			if(currSlide < slides.length - 1){
+			if (currSlide < slides.length - 1) {
 				currSlide++;
 				tutorialScreen.image = Textures.load(slides[currSlide]);
 				prev.visible = true;
 			}
-			if(currSlide >= slides.length - 1){
+			if (currSlide >= slides.length - 1) {
 				next.visible = false;
 			}
 		};
-		
+
 		var prev = new TextButton("Prev");
 		prev.y = 50;
-		prev.x = canvas.width/4;
+		prev.x = canvas.width / 4;
 		prev.center = true;
 		prev.label.dropShadow = true;
 		prev.label.fontSize = 30;
 		prev.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
 		prev.visible = false;
 		this.gui.addChild(prev);
-		prev.func = function(){
+		prev.func = function() {
 			//advance the background
-			if(currSlide > 0){
+			if (currSlide > 0) {
 				currSlide--;
 				tutorialScreen.image = Textures.load(slides[currSlide]);
 				next.visible = true;
 			}
-			if(currSlide <= 0){
+			if (currSlide <= 0) {
 				prev.visible = false;
 			}
 		};
-		
+
 		var returnToMenu = new TextButton("Main Menu");
 		returnToMenu.y = 50;
-		returnToMenu.x = canvas.width/2;
+		returnToMenu.x = canvas.width / 2;
 		returnToMenu.center = true;
 		returnToMenu.label.dropShadow = true;
 		returnToMenu.label.fontSize = 30;
@@ -405,7 +405,7 @@ mainMenu.init = function() {
 		returnToMenu.func = function() {
 			screenMan.remove(tutorialScreen);
 		};
-		
+
 	};
 
 	var gameScreen = new Screen(true, true);
@@ -443,17 +443,15 @@ mainMenu.init = function() {
 		peopleSpeech = loadSpeech();
 		this.stage.addChild(peopleSpeech);
 
-
-
 		this.stage.addChild(roomText);
 		this.stage.addChild(delivText);
 		this.stage.addChild(helpText);
 		this.stage.addChild(peopleQ);
 		this.stage.addChild(peopleA);
-		
+
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
-			// this.stage.addChild(rooms[i]);
+		// this.stage.addChild(rooms[i]);
 		// }
 
 		rooms = loadRooms();
@@ -465,7 +463,6 @@ mainMenu.init = function() {
 		this.stage.addChild(minibot);
 		people = loadPeople();
 		this.stage.addChild(people);
-		
 
 		// add stars
 		this.stage.addChild(star1);
@@ -476,7 +473,6 @@ mainMenu.init = function() {
 
 		character = loadCharacter();
 		this.stage.addChild(character);
-
 
 		//clickable things
 		sprites.push(phone);
@@ -494,12 +490,10 @@ mainMenu.init = function() {
 		while (customers.length > 0) {
 			customers.pop();
 		}
-		//clear current deliveries
-		// while(deliveries.length > 0){
-			// deliveries.pop();
-		// }
+
+		//empty deliveries
 		deliveries = [];
-		
+
 		phone.newLevel(level);
 		robot.newLevel(level);
 		phoneRing.visible = false;
@@ -507,6 +501,12 @@ mainMenu.init = function() {
 		character.newLevel(level);
 		time = 60;
 		timePause = false;
+		minibot.visible = false;
+		minibot.floor = 0;
+		delivTime = delivTime - currLevel;
+		if(level == 1){
+			delivTime = 20;
+		}
 	};
 
 	var pauseMenu = new Screen(false, true);
@@ -576,10 +576,6 @@ mainMenu.init = function() {
 
 	gameScreen.update = function(d) {
 
-		// var delivtxt = "";
-		// for(var i = 0; i < deliveries.length; i++){
-			// delivtxt += deliveries[i].toString() + " ";
-		// }
 		delivText.text = deliveries.toString();
 
 		waiting.text = "Customers waiting: " + customers.length;
@@ -601,6 +597,17 @@ mainMenu.init = function() {
 		}
 
 		this.updateChildren(d);
+		//tick down delivery timers
+		if (!timePause) {
+			delivTimer -= (d * MSPF) / 1000;
+		}
+
+		if (delivTimer < 0) {
+			if (deliveries.length > 0) {
+				lives--;
+				delivTimer = delivTime;
+			}
+		}
 		if (character.x == phone.x && phone.active) {
 			phone.active = false;
 			if (phone.ringing) {
@@ -613,7 +620,10 @@ mainMenu.init = function() {
 				roomText.visible = true;
 				//add it to the list of rooms needing a delivery
 				deliveries.push(roomNum);
-				
+				if (deliveries.length == 1) {
+					delivTimer = delivTime;
+				}
+
 				phone.arrived();
 			}
 		}
@@ -629,7 +639,7 @@ mainMenu.init = function() {
 		if (character.x != people.x && deskQ.visible) {
 			deskQ.hideQuestion();
 		}
-		if (deskQ.answered == true){
+		if (deskQ.answered == true) {
 			currSpeech.pause();
 			currSpeech.currentTime = 0;
 			deskQ.answered = false;
@@ -646,7 +656,7 @@ mainMenu.init = function() {
 		} else {
 			people.visible = false;
 		}
-		if(character.x == computer.moveX && computer.active){
+		if (character.x == computer.moveX && computer.active) {
 			computer.arrived();
 		}
 	};
@@ -657,12 +667,13 @@ mainMenu.init = function() {
 		phone.pause();
 		people.pauseTime = true;
 		timePause = true;
-		var i,j;
-		for (i=0; i<sArray.length; i++){
+		var i,
+		    j;
+		for ( i = 0; i < sArray.length; i++) {
 			sArray[i].pause();
 			sArray[i].currentTime = 0;
 		}
 		currSpeech.pause();
 		currSpeech.currentTime = 0;
-	};	
+	};
 };

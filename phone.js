@@ -27,7 +27,7 @@ function loadPhone() {
 	
 	phoneRing.animation = "ring";
 
-	phone.time = 3 + Math.floor(Math.random() * 5);
+	phone.time = 4 + Math.floor(Math.random() *2);
 	phone.timeInterval = 10;
 	phone.pauseTime = false;
 	phone.timer = 0;
@@ -49,7 +49,7 @@ function loadPhone() {
 					this.frameRate = this.moveRate;
 					this.frameRate = 0;
 					phone.alarm = true;
-					phone.timer = 5;
+					phone.timer = 20 - (currLevel*2);
 					// console.log("the phone is ring");
 				}
 			}
@@ -69,7 +69,7 @@ function loadPhone() {
 	//what happens when the phone is ringing and the player arrives there
 	phone.arrived = function() {
 		//Time between phone calls
-		phone.time = 5 + Math.floor(Math.random() * phone.timeInterval);
+		phone.time = (20 - (currLevel * 2)) + Math.floor(Math.random() * phone.timeInterval);
 		sArray[0].pause();
 		sArray[0].currentTime = 0;
 		phone.ringing = false;
@@ -106,8 +106,8 @@ function loadPhone() {
 
 	//set the phone to the start state of the new level
 	phone.newLevel = function(level) {
-		phone.time = 3 + Math.floor(Math.random() * 5);
-		phone.timeInterval = 10 - (2 * level);
+		phone.time = (6 - currLevel) + Math.floor(Math.random() * 2);
+		phone.timeInterval = 30 - (2 * level);
 		phone.ringing = false;
 		phone.active = false;
 		phone.visible = true;
