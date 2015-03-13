@@ -275,6 +275,18 @@ mainMenu.init = function() {
 		screenMan.push(credits);
 	};
 	
+	var tutorialButton = new TextButton("Tutorial");
+	tutorialButton.label.dropShadow = true;
+	tutorialButton.x = newGame.x-55;
+	tutorialButton.y = newGame.y-55;
+	//tutorialButton.center = true;
+	tutorialButton.label.fontSize = 30;
+	tutorialButton.setLabelColors("#000000", "#ffffff", "#ff0000");
+	this.gui.addChild(tutorialButton);
+	tutorialButton.func = function(){
+		screenMan.push(tutorialScreen);
+	};
+	
 	var credits = new Screen(false, false);
 	credits.init = function(){
 		this.width = canvas.width;
@@ -329,6 +341,71 @@ mainMenu.init = function() {
 			screenMan.remove(gameOver);
 			screenMan.remove(gameScreen);
 		};
+	};
+	
+	//tutorial screen
+	var tutorialScreen = new Screen(false, false);
+	tutorialScreen.image = Textures.load("Slide1.JPG");
+	tutorialScreen.init = function(){
+		this.width = canvas.width;
+		this.height = canvas.height;
+		
+		var slides = ["Slide1.JPG", "Slide2.JPG", "Slide3.JPG", "Slide4.JPG", "Slide5.JPG"];
+		var currSlide = 0;
+		
+		var next = new TextButton("Next");
+		next.y = 50;
+		next.x = canvas.width - canvas.width/4;
+		next.center = true;
+		next.label.dropShadow = true;
+		next.label.fontSize = 30;
+		next.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(next);
+		next.func = function(){
+			//advance the background
+			if(currSlide < slides.length - 1){
+				currSlide++;
+				tutorialScreen.image = Textures.load(slides[currSlide]);
+				prev.visible = true;
+			}
+			if(currSlide >= slides.length - 1){
+				next.visible = false;
+			}
+		};
+		
+		var prev = new TextButton("Prev");
+		prev.y = 50;
+		prev.x = canvas.width/4;
+		prev.center = true;
+		prev.label.dropShadow = true;
+		prev.label.fontSize = 30;
+		prev.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		prev.visible = false;
+		this.gui.addChild(prev);
+		prev.func = function(){
+			//advance the background
+			if(currSlide > 0){
+				currSlide--;
+				tutorialScreen.image = Textures.load(slides[currSlide]);
+				next.visible = true;
+			}
+			if(currSlide <= 0){
+				prev.visible = false;
+			}
+		};
+		
+		var returnToMenu = new TextButton("Main Menu");
+		returnToMenu.y = 50;
+		returnToMenu.x = canvas.width/2;
+		returnToMenu.center = true;
+		returnToMenu.label.dropShadow = true;
+		returnToMenu.label.fontSize = 30;
+		returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
+		this.gui.addChild(returnToMenu);
+		returnToMenu.func = function() {
+			screenMan.remove(tutorialScreen);
+		};
+		
 	};
 
 	var gameScreen = new Screen(true, true);
