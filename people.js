@@ -6,7 +6,7 @@ function loadPeople() {
 	people.width = 100;
 	people.height = 200;
 	people.space = people.height + 40;
-	people.image = Textures.load("customers.png");
+	people.image = Textures.load("Customer0.png");
 	people.visible = false;
 	people.active = false;
 	people.time = 3 + Math.floor(Math.random() * 5);
@@ -151,7 +151,13 @@ function loadPeople() {
 		console.log("I was chosen!");
 		people.active = true;
 	};
-
+	
+	people.change = function() {
+		var num = 2; 
+		// var num = Math.floor(Math.random() * 3);
+		this.image = Textures.load("Customer" + num + ".png");
+	};
+	
 	people.newLevel = function(level) {
 		people.pauseTime = false;
 		people.timeInterval = 10 - (2 * level);
@@ -159,6 +165,8 @@ function loadPeople() {
 		people.pausedTime = false;
 		deskQ.hideQuestion();
 	};
+
+	people.change();
 
 	return people;
 }
