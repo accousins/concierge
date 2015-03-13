@@ -223,6 +223,7 @@ resGame = function() {
 	people.pauseTime = false;
 	character.paused = false;
 	timePause = false;
+	sArray[3].play();
 	if (character.x == people.x && people.active) {
 			if (customers.length > 0) {
 				customers.getAt(0).voice.play();
@@ -399,6 +400,7 @@ mainMenu.init = function() {
 		sprites.push(people);
 		sprites.push(deskQ);
 		sprites.push(phoneQ);
+		sArray[3].play();
 	};
 
 	//essentially restarts the game with a new level.
@@ -493,7 +495,6 @@ mainMenu.init = function() {
 	});
 
 	gameScreen.update = function(d) {
-
 		// var delivtxt = "";
 		// for(var i = 0; i < deliveries.length; i++){
 			// delivtxt += deliveries[i].toString() + " ";
@@ -549,8 +550,6 @@ mainMenu.init = function() {
 			customers.getAt(0).voice.currentTime = 0;
 		}
 		if (deskQ.answered == true){
-			customers.getAt(0).voice.pause();
-			customers.getAt(0).voice.currentTime = 0;
 			deskQ.answered = false;
 		}
 		if (character.x == robot.x && robot.active) {

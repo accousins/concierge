@@ -43,6 +43,8 @@ function loadDeskQ() {
 			lives += customers.getAt(0).q.outcomes[0];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}
@@ -51,6 +53,8 @@ function loadDeskQ() {
 			lives += customers.getAt(0).q.outcomes[1];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}
@@ -59,6 +63,8 @@ function loadDeskQ() {
 			lives += customers.getAt(0).q.outcomes[2];
 			deskQ.hideQuestion();
 			deskQ.answered = true;
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
 			customers.pop();
 			people.change();
 		}

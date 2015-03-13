@@ -7,6 +7,9 @@ function loadSounds(){
 	roBeep.volume = 0.3;
 	var bellRing = new Audio("http://people.ucsc.edu/~donalexa/bellRing.wav");
 	var bgMusic = new Audio("bgMusic.mp3");
+	bgMusic.volume = 0.15;
+	bgMusic.loop = true;
+	bgMusic.preload = "auto";
 	sArray.push(pRing);
 	sArray.push(roBeep);
 	sArray.push(bellRing);
