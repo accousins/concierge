@@ -28,7 +28,7 @@ function loadPhoneQ() {
 	};
 	
 	phoneQ.newLevel = function(level){
-		
+		phoneQ.visible = false;
 	};
 
 	return phoneQ;

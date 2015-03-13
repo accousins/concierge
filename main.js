@@ -420,6 +420,9 @@ mainMenu.init = function() {
 		people.newLevel(level);
 		character.newLevel(level);
 		phoneQ.newLevel(level);
+		deskQ.newLevel(level);
+		roomText.visible = false;
+		
 		time = 60;
 		timePause = false;
 	};

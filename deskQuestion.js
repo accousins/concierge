@@ -63,6 +63,11 @@ function loadDeskQ() {
 			people.change();
 		}
 	};
+	
+	deskQ.newLevel = function(level){
+		deskQ.visible = false;
+		deskQ.answered = false;
+	};
 
 	return deskQ;
 }
