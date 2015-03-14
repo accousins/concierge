@@ -698,8 +698,10 @@ mainMenu.init = function() {
 			sArray[i].pause();
 			sArray[i].currentTime = 0;
 		}
-		customers.getAt(0).voice.pause();
-		customers.getAt(0).voice.currentTime = 0;
+		if(customers.length > 0){
+			customers.getAt(0).voice.pause();
+			customers.getAt(0).voice.currentTime = 0;
+		}
 	};	
 
 };

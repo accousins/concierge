@@ -138,8 +138,6 @@ function loadPeople() {
 		console.log("I was chosen!");
 		people.active = true;
 	};	
-	return people;
-};
 
 	people.change = function() {
 		//var num = 2;
