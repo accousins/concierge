@@ -42,6 +42,14 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
+var levelText = new TextBox();
+levelText.x = 10;
+levelText.y = 10;
+levelText.fontSize = 14;
+levelText.text = "Level: 0\n\nScore: 0";
+
+var score = 0;
+
 var bgMusic = loadMusic();
 bgMusic.play();
 
@@ -296,7 +304,6 @@ mainMenu.init = function() {
 	this.gui.addChild(tutorialButton);
 	tutorialButton.func = function() {
 		screenMan.push(tutorialScreen);
-		tutorialScreen.reset();
 	};
 
 	var credits = new Screen(false, false);
@@ -408,14 +415,13 @@ mainMenu.init = function() {
 		returnToMenu.setLabelColors("#aaaaaa", "#ffffff", "#ff0000");
 		this.gui.addChild(returnToMenu);
 		returnToMenu.func = function() {
+			currSlide = 0;
+			tutorialScreen.image = Textures.load(slides[currSlide]);
+			prev.visible = false;
+			next.visible = true;
 			screenMan.remove(tutorialScreen);
 		};
 
-	};
-	
-	tutorialScreen.reset = function(){
-		tutorialScreen.image = Textures.load("Slide1.JPG");
-		currSlide = 0;
 	};
 
 	var gameScreen = new Screen(true, true);
@@ -454,6 +460,8 @@ mainMenu.init = function() {
 		//text boxes
 		this.stage.addChild(waiting);
 		this.stage.addChild(timeText);
+		this.stage.addChild(levelText);
+		
 		//this.stage.addChild(roomText);
 		//this.stage.addChild(delivText);
 		//this.stage.addChild(helpText);
@@ -498,6 +506,7 @@ mainMenu.init = function() {
 	//essentially restarts the game with a new level.
 	gameScreen.newLevel = function(level) {
 		currLevel = level;
+		levelText.text = "Level: " + level + "\n\nScore: " + score;
 		//empty the customers list
 		while (customers.length > 0) {
 			customers.pop();
@@ -525,6 +534,7 @@ mainMenu.init = function() {
 		delivTime = delivTime - currLevel;
 		if(level == 1){
 			delivTime = 20;
+			score = 0;
 		}
 		computer.setHelp("Helpful information about customer's \nquestions can be found here!");
 	};
@@ -605,6 +615,16 @@ mainMenu.init = function() {
 			screenMan.remove(gameScreen);
 			//resGame();
 		};
+		
+		//stars
+		this.stage.addChild(star1);
+		this.stage.addChild(star2);
+		this.stage.addChild(star3);
+		this.stage.addChild(star4);
+		this.stage.addChild(star5);
+		
+		//score and level
+		this.stage.addChild(levelText);
 	};
 
 	gInput.addFunc(27, function() {
@@ -621,6 +641,7 @@ mainMenu.init = function() {
 	});
 
 	gameScreen.update = function(d) {
+		levelText.text = "Level: " + currLevel + "\n\nScore: " + score;
 		//delivText.text = deliveries.toString();
 		computer.updateDelivs();
 
