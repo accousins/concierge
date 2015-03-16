@@ -100,7 +100,7 @@ function loadPeople() {
 		question : "Is the robot smarter\nthan a person?",
 		answers : "Yeah it's pretty smart.\n\n\nNo, it just runs deliveries.\n\n\nSmarter than you! HAHA!.",
 		outcomes : [-1, 0, -1],
-		helptext : 'The robot is not smarter than a person.\nHave you ever met someone who lists "Can ride elevators\nall by myself" on their resume?'
+		helptext : 'The robot is not smarter than a person.\nHave you ever met someone who lists "Can ride\nelevators all by myself" on their resume?'
 	}];
 
 	people.update = function(d) {
