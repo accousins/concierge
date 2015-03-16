@@ -70,6 +70,7 @@ function loadMinibot() {
 					this.delivering = false;
 					if (this.correctDelivery) {
 						lives++;
+						score += 10;
 						this.correctDelivery = false;
 					} else {
 						lives--;
