@@ -59,6 +59,9 @@ function loadDeskQ() {
 		if (dy >= 75 && dy <= 99 && deskQ.visible) {
 			console.log("you picked A");
 			lives += customers.getAt(0).q.outcomes[0];
+			if(customers.getAt(0).q.outcomes[0] == 0){
+				score += 5;
+			}
 			deskQ.hideQuestion();
 			deskQ.answered = true;
 			customers.getAt(0).voice.pause();
@@ -69,6 +72,9 @@ function loadDeskQ() {
 		if (dy >= 100 && dy <= 124 && deskQ.visible) {
 			console.log("you picked B");
 			lives += customers.getAt(0).q.outcomes[1];
+			if(customers.getAt(0).q.outcomes[1] == 0){
+				score += 5;
+			}
 			deskQ.hideQuestion();
 			deskQ.answered = true;
 			customers.getAt(0).voice.pause();
@@ -79,6 +85,9 @@ function loadDeskQ() {
 		if (dy >= 125 && dy <= 150 && deskQ.visible) {
 			console.log("you picked C");
 			lives += customers.getAt(0).q.outcomes[2];
+			if(customers.getAt(0).q.outcomes[2] == 0){
+				score += 5;
+			}
 			deskQ.hideQuestion();
 			deskQ.answered = true;
 			customers.getAt(0).voice.pause();
