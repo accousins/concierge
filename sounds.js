@@ -13,9 +13,17 @@ function loadSounds(){
 	sArray.push(pRing);
 	sArray.push(roBeep);
 	sArray.push(bellRing);
-	sArray.push(bgMusic);
+	//sArray.push(bgMusic);
 	//sArray contents: 0 = phoneRing; 1 = robot Beep; 2 = desk bell; 3 = background music
 	return sArray;
+}
+
+function loadMusic(){
+	var bgMusic = new Audio("bgMusic.mp3");
+	bgMusic.volume = 0.15;
+	bgMusic.loop = true;
+	bgMusic.preload = "auto";
+	return bgMusic;
 }
 
 function loadSpeech(){

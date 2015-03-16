@@ -42,47 +42,52 @@ timeText.y = 5;
 timeText.fontSize = 32;
 timeText.text = "Time: 0";
 
+var bgMusic = loadMusic();
+bgMusic.play();
+
 // lives/stars
 var lives = 5;
 
 //the room to deliver to
-var roomText = new TextBox();
-roomText.x = 150;
-roomText.y = 300;
-roomText.fontSize = 16;
-roomText.visible = false;
+// var roomText = new TextBox();
+// roomText.x = 150;
+// roomText.y = 300;
+// roomText.fontSize = 16;
+// roomText.visible = false;
 
 //rooms to deliver to
 var deliveries = [];
 
 //text of rooms to deliver to
-var delivText = new TextBox();
-delivText.x = 210;
-delivText.y = 400;
-delivText.fontSize = 14;
-
-//text of help to answer customer questions
-var helpText = new TextBox();
-helpText.x = 210;
-helpText.y = 200;
-helpText.fontSize = 14;
-helpText.text = "Helpful information about customer's \nquestions can be found here!";
+// var delivText = new TextBox();
+// delivText.x = 210;
+// delivText.y = 400;
+// delivText.fontSize = 18;
+// delivText.visible = false;
+// 
+// //text of help to answer customer questions
+// var helpText = new TextBox();
+// helpText.x = 210;
+// helpText.y = 200;
+// helpText.fontSize = 18;
+// helpText.text = "Helpful information about customer's \nquestions can be found here!";
+// helpText.visible = false;
 
 //text of the customer's questions
-var peopleQ = new TextBox();
-peopleQ.x = 650;
-peopleQ.y = 260;
-peopleQ.fontSize = 14;
-peopleQ.text = "test question?";
-peopleQ.visible = false;
-
-//text of answers to the customer's questions
-var peopleA = new TextBox();
-peopleA.x = 642;
-peopleA.y = 325;
-peopleA.fontSize = 10;
-peopleA.text = "test\n\nwith\n\nnewlines";
-peopleA.visible = false;
+// var peopleQ = new TextBox();
+// peopleQ.x = 650;
+// peopleQ.y = 260;
+// peopleQ.fontSize = 14;
+// peopleQ.text = "test question?";
+// peopleQ.visible = false;
+// 
+// //text of answers to the customer's questions
+// var peopleA = new TextBox();
+// peopleA.x = 642;
+// peopleA.y = 325;
+// peopleA.fontSize = 10;
+// peopleA.text = "test\n\nwith\n\nnewlines";
+// peopleA.visible = false;
 
 //Define manager; manages clicks on sprites
 var manager = new Sprite();
@@ -228,7 +233,7 @@ resGame = function() {
 	phoneRing.frameRate = 15;
 	phoneRing.moveRate = 15;
 	timePause = false;
-	sArray[3].play();
+	//sArray[3].play();
 	if (character.x == people.x && people.active) {
 		if (customers.length > 0) {
 			customers.getAt(0).voice.play();
@@ -291,6 +296,7 @@ mainMenu.init = function() {
 	this.gui.addChild(tutorialButton);
 	tutorialButton.func = function() {
 		screenMan.push(tutorialScreen);
+		tutorialScreen.reset();
 	};
 
 	var credits = new Screen(false, false);
@@ -406,6 +412,11 @@ mainMenu.init = function() {
 		};
 
 	};
+	
+	tutorialScreen.reset = function(){
+		tutorialScreen.image = Textures.load("Slide1.JPG");
+		currSlide = 0;
+	};
 
 	var gameScreen = new Screen(true, true);
 	//Game Background here:
@@ -434,27 +445,28 @@ mainMenu.init = function() {
 		this.stage.addChild(computer);
 		deskQ = loadDeskQ();
 		this.stage.addChild(deskQ);
-		//text boxes
-		this.stage.addChild(waiting);
-		this.stage.addChild(timeText);
+
 		sArray = loadSounds();
 		this.stage.addChild(sArray);
 		peopleSpeech = loadSpeech();
 		this.stage.addChild(peopleSpeech);
 
-		this.stage.addChild(roomText);
-		this.stage.addChild(delivText);
-		this.stage.addChild(helpText);
-		this.stage.addChild(peopleQ);
-		this.stage.addChild(peopleA);
+		//text boxes
+		this.stage.addChild(waiting);
+		this.stage.addChild(timeText);
+		//this.stage.addChild(roomText);
+		//this.stage.addChild(delivText);
+		//this.stage.addChild(helpText);
+		//this.stage.addChild(peopleQ);
+		//this.stage.addChild(peopleA);
 
 		// rooms = loadRooms();
 		// for (var i = 0; i < rooms.length; i++) {
 		// this.stage.addChild(rooms[i]);
 		// }
 
-		rooms = loadRooms();
-		this.stage.addChild(rooms);
+		//rooms = loadRooms();
+		//this.stage.addChild(rooms);
 
 		// elevator = loadElevator();
 		// this.stage.addChild(elevator);
@@ -480,7 +492,7 @@ mainMenu.init = function() {
 		sprites.push(people);
 		sprites.push(deskQ);
 		sprites.push(phoneQ);
-		sArray[3].play();
+		//sArray[3].play();
 	};
 
 	//essentially restarts the game with a new level.
@@ -503,7 +515,8 @@ mainMenu.init = function() {
 		character.newLevel(level);
 		phoneQ.newLevel(level);
 		deskQ.newLevel(level);
-		roomText.visible = false;
+		//helpText.visible = false;
+		//delivText.visible = false;
 		
 		time = 60;
 		timePause = false;
@@ -513,7 +526,7 @@ mainMenu.init = function() {
 		if(level == 1){
 			delivTime = 20;
 		}
-		helpText.text = "Helpful information about customer's \nquestions can be found here!";
+		computer.setHelp("Helpful information about customer's \nquestions can be found here!");
 	};
 
 	var pauseMenu = new Screen(false, true);
@@ -608,7 +621,8 @@ mainMenu.init = function() {
 	});
 
 	gameScreen.update = function(d) {
-		delivText.text = deliveries.toString();
+		//delivText.text = deliveries.toString();
+		computer.updateDelivs();
 
 		waiting.text = "Customers waiting: " + customers.length;
 
@@ -648,8 +662,9 @@ mainMenu.init = function() {
 				//Pick a room number
 				var roomNum = Math.floor(Math.random() * 4) + 1;
 				roomNum += 100 * (1 + Math.floor(Math.random() * 3));
-				roomText.text = roomNum;
-				roomText.visible = true;
+				phoneQ.roomNum(roomNum);
+				//phoneQ.roomText.text = roomNum;
+				//roomText.visible = true;
 				//add it to the list of rooms needing a delivery
 				deliveries.push(roomNum);
 				if (deliveries.length == 1) {

@@ -7,28 +7,31 @@ function loadPhoneQ() {
 	phoneQ.image = Textures.load("phone_question_delivery.png");
 	phoneQ.visible = false;
 
+	var roomText = new TextBox();
+	roomText.x = 75;
+	roomText.y = 50;
+	roomText.fontSize = 20;
+	//roomText.visible = false;
+	roomText.text = "Number";
+	
+	phoneQ.addChild(roomText);
+	
+	phoneQ.roomNum = function(num){
+		roomText.text = num;
+	};
+
 	phoneQ.click = function() {
 		var dy = gInput.mouse.y - this.y;
 		if (dy >= 75 && dy <= 150 && phoneQ.visible) {
 			console.log("you picked A");
 			phoneQ.visible = false;
-			roomText.visible = false;
+			//roomText.visible = false;
 		}
-
-		// if (dy >= 100 && dy <= 124) {
-			// console.log("you picked B");
-			// lives.val--;
-			// phoneQ.visible = false;
-		// }
-		// if (dy >= 125 && dy <= 150) {
-			// console.log("you picked C");
-			// lives.val--;
-			// phoneQ.visible = false;
-		// }
 	};
-	
-	phoneQ.newLevel = function(level){
+
+	phoneQ.newLevel = function(level) {
 		phoneQ.visible = false;
+		//roomText.visible = false;
 	};
 
 	return phoneQ;
