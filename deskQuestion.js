@@ -10,32 +10,50 @@ function loadDeskQ() {
 
 	//var questions = [{image: "deskQ1.png", outcomes: [-1, 0, -1]}, {image: "deskQ2.png", outcomes: [0, -1, -1]}];
 	// deskQ.current;
-	
+
 	// deskQ.pickQuestion = function(){
-		// deskQ.current = questions[Math.floor(Math.random() * 2)];
-		// deskQ.image = Textures.load(this.current.image);
+	// deskQ.current = questions[Math.floor(Math.random() * 2)];
+	// deskQ.image = Textures.load(this.current.image);
 	// };
+
+	var peopleQ = new TextBox();
+	peopleQ.x = 10;
+	peopleQ.y = 10;
+	peopleQ.fontSize = 14;
+	peopleQ.text = "test question?";
+	//peopleQ.visible = false;
+
+	//text of answers to the customer's questions
+	var peopleA = new TextBox();
+	peopleA.x = 2;
+	peopleA.y = 75;
+	peopleA.fontSize = 10;
+	peopleA.text = "test\n\nwith\n\nnewlines";
+	//peopleA.visible = false;
 	
-	deskQ.showQuestion = function(){
+	deskQ.addChild(peopleQ);
+	deskQ.addChild(peopleA);
+
+	deskQ.showQuestion = function() {
 		console.log("display the question!");
 		deskQ.visible = true;
-		
+
 		peopleQ.text = customers.getAt(0).q.question;
 		peopleA.text = customers.getAt(0).q.answers;
-		
-		peopleQ.visible = true;
-		peopleA.visible = true;
-		
+
+		//peopleQ.visible = true;
+		//peopleA.visible = true;
+
 		//update the help text
-		helpText.text = customers.getAt(0).q.helptext;
+		computer.setHelp(customers.getAt(0).q.helptext);
 	};
-	
-	deskQ.hideQuestion = function(){
+
+	deskQ.hideQuestion = function() {
 		deskQ.visible = false;
-		peopleQ.visible = false;
-		peopleA.visible = false;
+		//peopleQ.visible = false;
+		//peopleA.visible = false;
 	};
-	
+
 	deskQ.click = function() {
 		var dy = gInput.mouse.y - this.y;
 		if (dy >= 75 && dy <= 99 && deskQ.visible) {
@@ -69,8 +87,8 @@ function loadDeskQ() {
 			people.change();
 		}
 	};
-	
-	deskQ.newLevel = function(level){
+
+	deskQ.newLevel = function(level) {
 		deskQ.visible = false;
 		deskQ.answered = false;
 	};
